@@ -1,10 +1,9 @@
 package com.alimama.easybuy.util;
 
-import org.news.entity.News;
 
 import java.util.List;
 
-public class Page {
+public class Page<T> {
     // 总页数
     private int totalPageCount = 0;
     // 页面大小，即每页显示记录数
@@ -13,8 +12,8 @@ public class Page {
     private int totalCount;
     // 当前页码
     private int currPageNo = 1;
-    // 每页新闻集合
-    private List<News> newsList;
+    // 每页数据集合
+    private List<T> newsList;
 
     public int getCurrPageNo() {
         if (totalPageCount == 0)
@@ -57,11 +56,11 @@ public class Page {
         this.totalPageCount = totalPageCount;
     }
 
-    public List<News> getNewsList() {
+    public List<T> getNewsList() {
         return newsList;
     }
 
-    public void setNewsList(List<News> newsList) {
+    public void setNewsList(List<T> newsList) {
         this.newsList = newsList;
     }
 }
