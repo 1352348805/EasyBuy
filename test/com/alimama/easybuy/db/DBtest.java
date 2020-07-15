@@ -21,6 +21,7 @@ public class DBtest {
             DruidPooledConnection con = DBPool.getConnection();
             System.out.println(con);
         }
+        System.out.println(1);
 
     }
 }
