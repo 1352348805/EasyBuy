@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 /**
+ * 数据库连接池
  * @author Jun Xiao
  * @date 2020/7/15 12:07
  */
