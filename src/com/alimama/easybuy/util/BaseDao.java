@@ -35,8 +35,6 @@ public class BaseDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw e;
-		} finally {
-			DatabaseUtil.closeAll(null, pstmt, null);
 		}
 		return result;
 	}

@@ -63,4 +63,12 @@ public class Page<T> {
     public void setNewsList(List<T> newsList) {
         this.newsList = newsList;
     }
+
+    /**
+     * 获取数据库分页开始的位置
+     * @return
+     */
+    public Integer getStartIndex() {
+        return (currPageNo - 1) * pageSize;
+    }
 }
