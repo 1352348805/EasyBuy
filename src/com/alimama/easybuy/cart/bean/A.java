@@ -5,4 +5,5 @@ package com.alimama.easybuy.cart.bean;
  * @date 2020/7/16 15:48
  */
 public class A {
+
 }
