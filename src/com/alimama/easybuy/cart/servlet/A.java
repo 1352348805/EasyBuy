@@ -1,4 +1,4 @@
-package com.alimama.easybuy.cart;
+package com.alimama.easybuy.cart.servlet;
 
 /**
  * @author Jun Xiao
