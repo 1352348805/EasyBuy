@@ -17,10 +17,11 @@ public class DBtest {
 
     @Test
     public void dbPool() throws SQLException {
-        for (int i = 0; i < 19 ; i++) {
-            DruidPooledConnection con = DBPool.getConnection();
-            System.out.println(con);
-        }
 
+        System.out.println(DBPool.getConnection());
+        DruidPooledConnection con = DBPool.getConnection();
+        //业务代码...
+
+        con.close();
     }
 }
