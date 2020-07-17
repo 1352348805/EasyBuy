@@ -55,6 +55,7 @@ public class DBPool {
             ds.setMinEvictableIdleTimeMillis(Integer.parseInt(minEvictableIdleTimeMillis));
             ds.setValidationQuery(validationQuery);
             ds.setTestWhileIdle(new Boolean(testWhileIdle));
+            ds.setTestOnBorrow(new Boolean(testOnBorrow));
             ds.setMaxPoolPreparedStatementPerConnectionSize(Integer.parseInt(maxPoolPreparedStatementPerConnectionSize));
             dataSource = ds;
         } catch (Exception e) {
