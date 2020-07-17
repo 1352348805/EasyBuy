@@ -49,7 +49,7 @@ public class DBPool {
      * @return
      * @throws SQLException
      */
-    public static DruidPooledConnection getConnection() throws SQLException {
+    public DruidPooledConnection getConnection() throws SQLException {
         return druidDataSource.getConnection();
     }
     /**
