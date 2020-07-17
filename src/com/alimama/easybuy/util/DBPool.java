@@ -19,7 +19,7 @@ import java.util.Properties;
 public class DBPool {
 
     static Logger log = Logger.getLogger(DBPool.class);
-    //private static DBPoolConnection dbPoolConnection = null;
+    private static DBPool dbPoolConnection = null;
     private static DruidDataSource druidDataSource = null;
 
     static {
@@ -35,12 +35,12 @@ public class DBPool {
      * 数据库连接池单例
      * @return
      */
-//    public static synchronized DBPoolConnection getInstance(){
-//        if (null == dbPoolConnection){
-//            dbPoolConnection = new DBPoolConnection();
-//        }
-//        return dbPoolConnection;
-//    }
+    public static synchronized DBPool getInstance(){
+        if (null == dbPoolConnection){
+            dbPoolConnection = new DBPool();
+        }
+        return dbPoolConnection;
+    }
 
     private DBPool() {}
 
