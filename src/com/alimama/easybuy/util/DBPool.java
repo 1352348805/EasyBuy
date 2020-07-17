@@ -19,13 +19,44 @@ import java.util.Properties;
 public class DBPool {
 
     static Logger log = Logger.getLogger(DBPool.class);
-    private static DBPool dbPoolConnection = null;
-    private static DruidDataSource druidDataSource = null;
-
+    private static DruidDataSource dataSource = null;
+    private static final String driver = ConfigManager.getProperty("driver");
+    private static final String url = ConfigManager.getProperty("url");
+    private static final String username = ConfigManager.getProperty("username");
+    private static final String password = ConfigManager.getProperty("password");
+    private static final String initialSize = ConfigManager.getProperty("initialSize");
+    private static final String minIdle = ConfigManager.getProperty("minIdle");
+    private static final String maxActive = ConfigManager.getProperty("maxActive");
+    private static final String maxWait = ConfigManager.getProperty("maxWait");
+    private static final String timeBetweenEvictionRunsMillis = ConfigManager.getProperty("timeBetweenEvictionRunsMillis");
+    private static final String minEvictableIdleTimeMillis = ConfigManager.getProperty("minEvictableIdleTimeMillis");
+    private static final String validationQuery = ConfigManager.getProperty("validationQuery");
+    private static final String testWhileIdle = ConfigManager.getProperty("testWhileIdle");
+    private static final String testOnBorrow = ConfigManager.getProperty("testOnBorrow");
+    private static final String testOnReturn = ConfigManager.getProperty("testOnReturn");
+    private static final String poolPreparedStatements = ConfigManager.getProperty("poolPreparedStatements");
+    private static final String maxPoolPreparedStatementPerConnectionSize = ConfigManager.getProperty("maxPoolPreparedStatementPerConnectionSize");
+    private static final String removeAbandoned = ConfigManager.getProperty("removeAbandoned");
+    private static final String removeAbandonedTimeout = ConfigManager.getProperty("removeAbandonedTimeout");
+    private static final String logAbandoned = ConfigManager.getProperty("logAbandoned");
+    private static final String filters = ConfigManager.getProperty("filters");
     static {
-        Properties properties = loadPropertiesFile("database.properties");
         try {
-            druidDataSource = (DruidDataSource)DruidDataSourceFactory.createDataSource(properties); //DruidDataSrouce工厂模式
+            DruidDataSource ds = new DruidDataSource();
+            ds.setDriverClassName(driver);
+            ds.setUrl(url);
+            ds.setUsername(username);
+            ds.setPassword(password);
+            ds.setMaxActive(Integer.parseInt(maxActive));
+            ds.setInitialSize(Integer.parseInt(initialSize));
+            ds.setMinIdle(Integer.parseInt(minIdle));
+            ds.setMaxWait(Integer.parseInt(maxWait));
+            ds.setTimeBetweenEvictionRunsMillis(Integer.parseInt(timeBetweenEvictionRunsMillis));
+            ds.setMinEvictableIdleTimeMillis(Integer.parseInt(minEvictableIdleTimeMillis));
+            ds.setValidationQuery(validationQuery);
+            ds.setTestWhileIdle(new Boolean(testWhileIdle));
+            ds.setMaxPoolPreparedStatementPerConnectionSize(Integer.parseInt(maxPoolPreparedStatementPerConnectionSize));
+            dataSource = ds;
         } catch (Exception e) {
             log.error("获取配置失败");
         }
@@ -35,12 +66,12 @@ public class DBPool {
      * 数据库连接池单例
      * @return
      */
-    public static synchronized DBPool getInstance(){
-        if (null == dbPoolConnection){
-            dbPoolConnection = new DBPool();
-        }
-        return dbPoolConnection;
-    }
+//    public static synchronized DBPool getInstance(){
+//        if (null == dbPoolConnection){
+//            dbPoolConnection = new DBPool();
+//        }
+//        return dbPoolConnection;
+//    }
 
 
     /**
@@ -48,38 +79,8 @@ public class DBPool {
      * @return
      * @throws SQLException
      */
-    public DruidPooledConnection getConnection() throws SQLException {
-        return druidDataSource.getConnection();
+    public static DruidPooledConnection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
-    /**
-     * @param fullFile 配置文件名
-     * @return Properties对象
-     */
-    private static Properties loadPropertiesFile(String fullFile) {
-        String webRootPath = null;
-        if (null == fullFile || fullFile.equals("")){
-            throw new IllegalArgumentException("Properties file path can not be null" + fullFile);
-        }
-        webRootPath = DBPool.class.getClassLoader().getResource(fullFile).getPath();
-        webRootPath = new File(webRootPath).getParent();
-        InputStream inputStream = null;
-        Properties p =null;
-        try {
-            inputStream = new FileInputStream(new File(webRootPath + File.separator + fullFile));
-            p = new Properties();
-            p.load(inputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != inputStream){
-                    inputStream.close();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
-        return p;
-    }
 }
