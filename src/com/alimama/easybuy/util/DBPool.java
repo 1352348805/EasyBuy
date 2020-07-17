@@ -61,7 +61,7 @@ public class DBPool {
         if (null == fullFile || fullFile.equals("")){
             throw new IllegalArgumentException("Properties file path can not be null" + fullFile);
         }
-        webRootPath = DBPool.class.getClassLoader().getResource("").getPath();
+        webRootPath = DBPool.class.getClassLoader().getResource(fullFile).getPath();
         webRootPath = new File(webRootPath).getParent();
         InputStream inputStream = null;
         Properties p =null;
