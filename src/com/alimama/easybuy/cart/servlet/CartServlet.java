@@ -19,13 +19,14 @@ import java.io.PrintWriter;
  * @date 2020/7/16 15:46
  */
 
-@WebServlet("/addToCart")
+@WebServlet("/Cart")
 public class CartServlet extends HttpServlet {
 
     private CartService cartService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
         String pid = req.getParameter("pid");
         String num = req.getParameter("num");
         cartService = new CartServiceImpl();

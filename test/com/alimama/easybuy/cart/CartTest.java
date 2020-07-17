@@ -31,7 +31,6 @@ public class CartTest {
         System.out.println(cartItem.getTotalPrice());
 
         List<CartItem> cartItems = new ArrayList<>();
-        System.out.println("你好");
 
         cartItems.add(cartItem);
         cartItems.add(cartItem1);
