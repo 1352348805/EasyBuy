@@ -2,11 +2,14 @@ package com.alimama.easybuy.cart;
 
 import com.alimama.easybuy.cart.bean.Cart;
 import com.alimama.easybuy.cart.bean.CartItem;
+import com.alimama.easybuy.news.A;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Jun Xiao
@@ -28,11 +31,12 @@ public class CartTest {
         System.out.println(cartItem.getTotalPrice());
 
         List<CartItem> cartItems = new ArrayList<>();
-
+        System.out.println("你好");
 
         cartItems.add(cartItem);
         cartItems.add(cartItem1);
         cart.setCartItems(cartItems);
         System.out.println(cart.getTotalPrice());
     }
+
 }
