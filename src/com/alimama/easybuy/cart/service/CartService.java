@@ -8,5 +8,6 @@ import com.alimama.easybuy.to.CommonResult;
  */
 public interface CartService{
 
+    //添加到购物车
     CommonResult addToCart(Integer pid, Integer num);
 }
