@@ -13,9 +13,11 @@ public class EncodingFilter implements Filter{
 
     private static String encoding;
 
+    @Override
     public void destroy() {
     }
 
+    @Override
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse) resp;
@@ -25,6 +27,7 @@ public class EncodingFilter implements Filter{
         chain.doFilter(request, response);
     }
 
+    @Override
     public void init(FilterConfig config) throws ServletException {
         this.encoding = config.getInitParameter("encoding");
     }

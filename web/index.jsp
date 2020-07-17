@@ -1,5 +1,6 @@
-<%@ page import="com.alimama.easybuy.util.DBPool" %>
-<%@ page import="com.alibaba.druid.pool.DruidPooledConnection" %><%--
+<%@ page import="com.alimama.easybuy.util.DatabaseUtil" %>
+<%@ page import="com.alibaba.druid.pool.DruidPooledConnection" %>
+<%@ page import="java.sql.Connection" %><%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2020/7/16
@@ -13,8 +14,9 @@
 </head>
 <body>
 <%
-    DruidPooledConnection connection = DBPool.getConnection();
-    out.print(connection);
+    Connection con = null;
+    out.print(con = DatabaseUtil.getConnection());
+    con.close();
 %>
 </body>
 </html>
