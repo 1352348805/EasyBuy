@@ -43,4 +43,31 @@ public class UserServiceImpl implements UserService{
         user= dao.findUserLogin(name);
         return user;
     }
+
+    @Override
+    public Integer register(User user) {
+        Integer i = 0;
+        Connection con = null;
+        try {
+            con = DatabaseUtil.getConnection();
+            UserDao userDao = new UserDaoImpl(con);
+            User existUser = userDao.findUserLogin(user.getLoginName());
+            if (null != existUser) {
+                //用户已存在
+                return 0;
+            }
+            i = userDao.insert(user);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+        return i;
+    }
 }
