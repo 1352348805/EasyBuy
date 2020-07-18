@@ -14,9 +14,6 @@ function CloseDiv(show_div,bg_div)
 	document.getElementById(show_div).style.display='none';
 	document.getElementById(bg_div).style.display='none';
 };
-
-
-
 function ShowDiv_1(show_div,bg_div){
 	document.getElementById(show_div).style.display='block';
 	document.getElementById(bg_div).style.display='block' ;
@@ -25,9 +22,13 @@ function ShowDiv_1(show_div,bg_div){
 	// bgdiv.style.height = $(document).height();
 	$("#"+bg_div).height($(document).height());
 };
-//¹Ø±Õµ¯³ö²ã
 function CloseDiv_1(show_div,bg_div)
 {
 	document.getElementById(show_div).style.display='none';
 	document.getElementById(bg_div).style.display='none';
 };
+//å¼¹å‡ºçª—
+function showMessage(content){
+	ShowDiv_1('MyDiv1','fade1');
+	$("#showMessage").html(content);
+}
