@@ -1,5 +1,6 @@
 package com.alimama.easybuy.user.service.impl;
 
+import com.alimama.easybuy.to.CommonResult;
 import com.alimama.easybuy.user.bean.User;
 import com.alimama.easybuy.user.dao.UserDao;
 import com.alimama.easybuy.user.dao.impl.UserDaoImpl;
@@ -45,8 +46,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Integer register(User user) {
-        Integer i = 0;
+    public CommonResult register(User user) {
         Connection con = null;
         try {
             con = DatabaseUtil.getConnection();
@@ -54,9 +54,9 @@ public class UserServiceImpl implements UserService{
             User existUser = userDao.findUserLogin(user.getLoginName());
             if (null != existUser) {
                 //用户已存在
-                return 0;
+                return new CommonResult().validateFailed("用户已存在");
             }
-            i = userDao.insert(user);
+            userDao.insert(user);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -68,6 +68,6 @@ public class UserServiceImpl implements UserService{
                 throwables.printStackTrace();
             }
         }
-        return i;
+        return new CommonResult().success(null);
     }
 }

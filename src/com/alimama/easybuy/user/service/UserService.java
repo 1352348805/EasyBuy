@@ -1,5 +1,6 @@
 package com.alimama.easybuy.user.service;
 
+import com.alimama.easybuy.to.CommonResult;
 import com.alimama.easybuy.user.bean.User;
 
 import java.sql.SQLException;
@@ -12,5 +13,5 @@ public interface UserService {
     //查找用户登入
     User findUserLogin(String name) throws SQLException;
     //用户注册
-    Integer register(User user);
+    CommonResult register(User user);
 }

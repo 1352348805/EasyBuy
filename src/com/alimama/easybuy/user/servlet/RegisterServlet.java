@@ -1,5 +1,7 @@
 package com.alimama.easybuy.user.servlet;
 
+import com.alibaba.fastjson.JSON;
+import com.alimama.easybuy.to.CommonResult;
 import com.alimama.easybuy.user.bean.User;
 import com.alimama.easybuy.user.service.UserService;
 import com.alimama.easybuy.user.service.impl.UserServiceImpl;
@@ -42,17 +44,13 @@ public class RegisterServlet extends HttpServlet {
         user.setIdentityCode(identityCode);
         user.setEmail(email);
         user.setMobile(mobile);
+
         UserService userService = new UserServiceImpl();
-        Integer i = userService.register(user);
-        if (i > 0) {
-            //注册成功，提示并跳转登录界面
-            PrintWriter out = resp.getWriter();
-            out.print("<script>alert('注册成功！确认返回登录页...');location.href='/EasyBuy/ServletLogin'</script>");
-            out.flush();
-            out.close();
-        } else if (i == 0) {
-            req.setAttribute("msg", "用户名已存在");
-            req.getRequestDispatcher("/WEB-INF/page/user/Register.jsp").forward(req,resp);
-        }
+        CommonResult commonResult = userService.register(user);
+        String resultJsonString = JSON.toJSONString(commonResult);
+        PrintWriter out = resp.getWriter();
+        out.print(resultJsonString);
+        out.flush();
+        out.close();
     }
 }
