@@ -1,4 +1,4 @@
-package com.alimama.easybuy.commodity.servlet;
+package com.alimama.easybuy.product.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

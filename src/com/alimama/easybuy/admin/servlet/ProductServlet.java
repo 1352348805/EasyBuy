@@ -12,7 +12,7 @@ import java.io.IOException;
  * @date 2020/7/17 23:30
  */
 
-@WebServlet("/admin/product")
+@WebServlet("/admin/Product")
 public class ProductServlet extends HttpServlet {
 
     @Override

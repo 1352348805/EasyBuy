@@ -1,6 +1,6 @@
-package com.alimama.easybuy.commodity.bean;
+package com.alimama.easybuy.product.bean;
 
-public class product_category {
+public class Product_Category {
     private Integer id;
     private String name;
     private Integer parentId;
@@ -49,7 +49,7 @@ public class product_category {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer("product_category{");
+        final StringBuffer sb = new StringBuffer("Product_Category{");
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append(", parentId=").append(parentId);
