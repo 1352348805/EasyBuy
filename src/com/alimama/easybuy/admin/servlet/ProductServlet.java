@@ -22,5 +22,7 @@ public class ProductServlet extends HttpServlet {
         if ("index".equals(action)) {
             req.getRequestDispatcher("/WEB-INF/page/admin/index.jsp").forward(req,resp);
         }
+
+
     }
 }
