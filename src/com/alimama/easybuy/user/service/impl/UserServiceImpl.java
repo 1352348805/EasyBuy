@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService{
             }
             userDao.insert(user);
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            return new CommonResult().validateFailed("服务器炸了");
         } finally {
             try {
                 if (con != null) {
