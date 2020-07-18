@@ -1,4 +1,4 @@
-package com.alimama.easybuy.admin.servlet;
+package com.alimama.easybuy.userweb.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +9,15 @@ import java.io.IOException;
 
 /**
  * @author Jun Xiao
- * @date 2020/7/17 23:30
+ * @date 2020/7/18 11:40
  */
 
-@WebServlet("/admin/product")
-public class ProductServlet extends HttpServlet {
+@WebServlet("/Login")
+public class LoginServlet extends HttpServlet {
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-
-        if ("index".equals(action)) {
-            req.getRequestDispatcher("/WEB-INF/page/admin/index.jsp").forward(req,resp);
-        }
-
 
     }
 }
