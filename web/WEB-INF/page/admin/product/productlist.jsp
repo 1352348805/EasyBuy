@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -194,84 +193,125 @@
 <div class="i_bg bg_color">
     <!--Begin 用户中心 Begin -->
 	<div class="m_content">
-   		<jsp:include page="../common/left_nav.jsp" />
-		<div class="m_right">
-        	<div class="m_des">
-            	<table border="0" style="width:870px; line-height:22px;" cellspacing="0" cellpadding="0">
-                  <tr valign="top">
-                    <td width="115"><img src="<%=path%>/images/user.jpg" width="90" height="90" /></td>
+   		<jsp:include page="../../common/left_nav.jsp" />
+        <div class="m_right" id="content">
+            <div class="mem_tit">商品列表</div>
+            <br>
+            <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
+                <tbody>
+                <tr>
+                    <td width="10%">商品名称</td>
+                    <td width="10%">商品图片</td>
+                    <td width="5%">库存</td>
+                    <td width="10%">价格</td>
+                    <td width="10%" colspan="2">操作</td>
+                </tr>
+
+                <tr>
+                    <td>香奈儿</td>
                     <td>
-                    	<div class="m_user">TRACY</div>
-                        <p>性别：男 <br />
-                        <p>邮箱：xxxxxxxx <br />
-                        <p>电话：xxxxxxxx <br />
-<%--                            <font color="#ff4e00">您还差 270 积分达到 分红100</font><br />--%>
-<%--                            上一次登录时间: 2015-09-28 18:19:47<br />--%>
-<%--                            您还没有通过邮件认证 <a href="#" style="color:#ff4e00;">点此发送认证邮件</a>--%>
-<%--                        </p>--%>
-<%--                        <div class="m_notice">--%>
-<%--                        	用户中心公告！--%>
-<%--                        </div>--%>
+                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=733" target="_blank">
+                            <img src="/EasyBuy_war/files/27A1789ED5764D82A5506DF3DC3933F9.jpg" width="50" height="50">
+                        </a>
                     </td>
-                  </tr>
-                </table>	
+                    <td>1</td>
+                    <td>152.0</td>
+                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=733">修改</a></td>
+                    <td><a href="javascript:void(0);" onclick="deleteById('733');">删除</a></td>
+                </tr>
+
+                <tr>
+                    <td>洗面奶</td>
+                    <td>
+                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=734" target="_blank">
+                            <img src="/EasyBuy_war/files/D6C9BD438C5643D6B1A6C52E5426FE22.jpg" width="50" height="50">
+                        </a>
+                    </td>
+                    <td>1</td>
+                    <td>152.0</td>
+                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=734">修改</a></td>
+                    <td><a href="javascript:void(0);" onclick="deleteById('734');">删除</a></td>
+                </tr>
+
+                <tr>
+                    <td>啫喱水</td>
+                    <td>
+                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=735" target="_blank">
+                            <img src="/EasyBuy_war/files/1A836D2B3A3348DDAB19807E6CEA8028.jpg" width="50" height="50">
+                        </a>
+                    </td>
+                    <td>998</td>
+                    <td>152.0</td>
+                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=735">修改</a></td>
+                    <td><a href="javascript:void(0);" onclick="deleteById('735');">删除</a></td>
+                </tr>
+
+                <tr>
+                    <td>香水5852</td>
+                    <td>
+                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=736" target="_blank">
+                            <img src="/EasyBuy_war/files/4D9499BAD92A42D291094E797BA2EA3F.jpg" width="50" height="50">
+                        </a>
+                    </td>
+                    <td>1000</td>
+                    <td>152.0</td>
+                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=736">修改</a></td>
+                    <td><a href="javascript:void(0);" onclick="deleteById('736');">删除</a></td>
+                </tr>
+
+                <tr>
+                    <td>香水</td>
+                    <td>
+                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=737" target="_blank">
+                            <img src="/EasyBuy_war/files/A9924F9DB68B4DF99FDBF05902075AF0.jpg" width="50" height="50">
+                        </a>
+                    </td>
+                    <td>111</td>
+                    <td>152.0</td>
+                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=737">修改</a></td>
+                    <td><a href="javascript:void(0);" onclick="deleteById('737');">删除</a></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+
+
+            <script type="text/javascript">
+                var contextPath = "/EasyBuy_war";
+            </script>
+            <div class="pages">
+
+                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=1" class="p_pre">首页</a>
+
+
+
+                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=1" class="cur">1</a>
+
+
+
+
+
+                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=2">2</a>
+
+
+
+
+                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=3">3</a>
+
+
+
+
+                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=4">4</a>
+
+
+
+                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=2" class="p_pre">下一页</a>
+
+                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=8" class="p_pre">尾页</a>
+
+
             </div>
-            
-            <div class="mem_t"></div>
-<%--            <table border="0" class="mon_tab" style="width:870px; margin-bottom:20px;" cellspacing="0" cellpadding="0">--%>
-<%--              <tr>--%>
-<%--                <td width="33%">用户等级：<span style="color:#555555;">普通会员</span></td>--%>
-<%--                <td width="33%">消费金额：<span>￥200元</span></td>--%>
-<%--                <td width="33%">返还积分：<span>99R</span></td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td>账户余额：<span>￥200元</span></td></td>--%>
-<%--                <td>红包个数：<span style="color:#555555;">3个</span></td></td>--%>
-<%--                <td>红包价值：<span>￥50元</span></td></td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td colspan="3">订单提醒：--%>
-<%--                	<font style="font-family:'宋体';">待付款(<span>0</span>) &nbsp; &nbsp; &nbsp; &nbsp; 待收货(<span>2</span>) &nbsp; &nbsp; &nbsp; &nbsp; 待评论(<span>1</span>)</font>--%>
-<%--                </td>--%>
-<%--              </tr>--%>
-<%--            </table>--%>
-
-<%--            <div class="mem_t">账号信息</div>--%>
-<%--            <table border="0" class="acc_tab" style="width:870px;" cellspacing="0" cellpadding="0">--%>
-<%--              <tr>--%>
-<%--                <td class="td_l">用户ID： </td>--%>
-<%--                <td>12345678</td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td class="td_l b_none">身份证号：</td>--%>
-<%--                <td>522124***********8</td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td class="td_l b_none">电  话：</td>--%>
-<%--                <td>186****1234</td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td class="td_l">邮   箱： </td>--%>
-<%--                <td>*******789@qq.com</td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td class="td_l b_none">注册时间：</td>--%>
-<%--                <td>2015/10/10</td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td class="td_l">完成订单：</td>--%>
-<%--                <td>0</td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td class="td_l b_none">邀请人：</td>--%>
-<%--                <td>邀请人</td>--%>
-<%--              </tr>--%>
-<%--              <tr>--%>
-<%--                <td class="td_l">登录次数：</td>--%>
-<%--                <td>3</td>--%>
-<%--              </tr>--%>
-<%--            </table>--%>
-
 
         </div>
     </div>

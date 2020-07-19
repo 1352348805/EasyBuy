@@ -3,7 +3,7 @@ package com.alimama.easybuy.user.bean;
 import java.util.Date;
 
 /**
- * @author Jun Xiao
+ * @author asuk
  * @date 2020/7/17 10:42
  */
 public class UserAddress {
