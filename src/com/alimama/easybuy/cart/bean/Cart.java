@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * @author Jun Xiao
+ * @author asuk
  * @date 2020/7/16 17:34
  * 整个购物车
  */

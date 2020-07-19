@@ -3,7 +3,7 @@ package com.alimama.easybuy.cart.bean;
 import java.math.BigDecimal;
 
 /**
- * @author Jun Xiao
+ * @author asuk
  * @date 2020/7/16 15:48
  * 购物车单项数据
  */

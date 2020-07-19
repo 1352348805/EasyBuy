@@ -3,7 +3,7 @@ package com.alimama.easybuy.cart.service;
 import com.alimama.easybuy.to.CommonResult;
 
 /**
- * @author Jun Xiao
+ * @author asuk
  * @date 2020/7/16 15:48
  */
 public interface CartService{

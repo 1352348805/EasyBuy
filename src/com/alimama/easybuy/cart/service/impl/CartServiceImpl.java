@@ -4,7 +4,7 @@ import com.alimama.easybuy.cart.service.CartService;
 import com.alimama.easybuy.to.CommonResult;
 
 /**
- * @author Jun Xiao
+ * @author asuk
  * @date 2020/7/17 8:51
  */
 public class CartServiceImpl implements CartService {
