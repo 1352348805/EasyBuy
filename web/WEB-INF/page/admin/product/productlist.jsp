@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
 %>
@@ -41,71 +42,73 @@
                     <td width="10%">价格</td>
                     <td width="10%" colspan="2">操作</td>
                 </tr>
+               <c:forEach items="${products}" var="product">
+                   <tr>
+                       <td>${product.name}</td>
+                       <td>
+                           <a href="/EasyBuy/Product?action=queryProductDeatil&amp;id=733" target="_blank">
+                               <img src="<%=path%>/images/${product.fileName}" width="50" height="50">
+                           </a>
+                       </td>
+                       <td>${product.stock}</td>
+                       <td>${product.price}</td>
+                       <td><a href="/EasyBuy/admin/product?action=toUpdateProduct&amp;id=733">修改</a></td>
+                       <td><a href="javascript:void(0);" onclick="deleteById('733');">删除</a></td>
+                   </tr>
+               </c:forEach>
 
-                <tr>
-                    <td>香奈儿</td>
-                    <td>
-                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=733" target="_blank">
-                            <img src="/EasyBuy_war/files/27A1789ED5764D82A5506DF3DC3933F9.jpg" width="50" height="50">
-                        </a>
-                    </td>
-                    <td>1</td>
-                    <td>152.0</td>
-                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=733">修改</a></td>
-                    <td><a href="javascript:void(0);" onclick="deleteById('733');">删除</a></td>
-                </tr>
 
-                <tr>
-                    <td>洗面奶</td>
-                    <td>
-                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=734" target="_blank">
-                            <img src="/EasyBuy_war/files/D6C9BD438C5643D6B1A6C52E5426FE22.jpg" width="50" height="50">
-                        </a>
-                    </td>
-                    <td>1</td>
-                    <td>152.0</td>
-                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=734">修改</a></td>
-                    <td><a href="javascript:void(0);" onclick="deleteById('734');">删除</a></td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td>洗面奶</td>--%>
+<%--                    <td>--%>
+<%--                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=734" target="_blank">--%>
+<%--                            <img src="/EasyBuy_war/files/D6C9BD438C5643D6B1A6C52E5426FE22.jpg" width="50" height="50">--%>
+<%--                        </a>--%>
+<%--                    </td>--%>
+<%--                    <td>1</td>--%>
+<%--                    <td>152.0</td>--%>
+<%--                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=734">修改</a></td>--%>
+<%--                    <td><a href="javascript:void(0);" onclick="deleteById('734');">删除</a></td>--%>
+<%--                </tr>--%>
 
-                <tr>
-                    <td>啫喱水</td>
-                    <td>
-                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=735" target="_blank">
-                            <img src="/EasyBuy_war/files/1A836D2B3A3348DDAB19807E6CEA8028.jpg" width="50" height="50">
-                        </a>
-                    </td>
-                    <td>998</td>
-                    <td>152.0</td>
-                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=735">修改</a></td>
-                    <td><a href="javascript:void(0);" onclick="deleteById('735');">删除</a></td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td>啫喱水</td>--%>
+<%--                    <td>--%>
+<%--                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=735" target="_blank">--%>
+<%--                            <img src="/EasyBuy_war/files/1A836D2B3A3348DDAB19807E6CEA8028.jpg" width="50" height="50">--%>
+<%--                        </a>--%>
+<%--                    </td>--%>
+<%--                    <td>998</td>--%>
+<%--                    <td>152.0</td>--%>
+<%--                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=735">修改</a></td>--%>
+<%--                    <td><a href="javascript:void(0);" onclick="deleteById('735');">删除</a></td>--%>
+<%--                </tr>--%>
 
-                <tr>
-                    <td>香水5852</td>
-                    <td>
-                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=736" target="_blank">
-                            <img src="/EasyBuy_war/files/4D9499BAD92A42D291094E797BA2EA3F.jpg" width="50" height="50">
-                        </a>
-                    </td>
-                    <td>1000</td>
-                    <td>152.0</td>
-                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=736">修改</a></td>
-                    <td><a href="javascript:void(0);" onclick="deleteById('736');">删除</a></td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td>香水5852</td>--%>
+<%--                    <td>--%>
+<%--                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=736" target="_blank">--%>
+<%--                            <img src="/EasyBuy_war/files/4D9499BAD92A42D291094E797BA2EA3F.jpg" width="50" height="50">--%>
+<%--                        </a>--%>
+<%--                    </td>--%>
+<%--                    <td>1000</td>--%>
+<%--                    <td>152.0</td>--%>
+<%--                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=736">修改</a></td>--%>
+<%--                    <td><a href="javascript:void(0);" onclick="deleteById('736');">删除</a></td>--%>
+<%--                </tr>--%>
 
-                <tr>
-                    <td>香水</td>
-                    <td>
-                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=737" target="_blank">
-                            <img src="/EasyBuy_war/files/A9924F9DB68B4DF99FDBF05902075AF0.jpg" width="50" height="50">
-                        </a>
-                    </td>
-                    <td>111</td>
-                    <td>152.0</td>
-                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=737">修改</a></td>
-                    <td><a href="javascript:void(0);" onclick="deleteById('737');">删除</a></td>
-                </tr>
+<%--                <tr>--%>
+<%--                    <td>香水</td>--%>
+<%--                    <td>--%>
+<%--                        <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=737" target="_blank">--%>
+<%--                            <img src="/EasyBuy_war/files/A9924F9DB68B4DF99FDBF05902075AF0.jpg" width="50" height="50">--%>
+<%--                        </a>--%>
+<%--                    </td>--%>
+<%--                    <td>111</td>--%>
+<%--                    <td>152.0</td>--%>
+<%--                    <td><a href="/EasyBuy_war/admin/product?action=toUpdateProduct&amp;id=737">修改</a></td>--%>
+<%--                    <td><a href="javascript:void(0);" onclick="deleteById('737');">删除</a></td>--%>
+<%--                </tr>--%>
 
                 </tbody>
             </table>
@@ -113,37 +116,41 @@
 
 
             <script type="text/javascript">
-                var contextPath = "/EasyBuy_war";
+                var contextPath = "/EasyBuy";
             </script>
             <div class="pages">
 
-                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=1" class="p_pre">首页</a>
+                <a href="/EasyBuy/admin/product?action=index&amp;currentPage=1" class="p_pre">首页</a>
 
 
-
-                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=1" class="cur">1</a>
-
-
-
-
-
-                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=2">2</a>
+                <c:forEach items="${pa.totalPageCount}" var="pages" begin="${pa.currPageNo}"  step="5">
+                    <a href="<%=path%>/admin/product?action=index&amp;currentPage=${pa.currPageNo}" class="cur">1</a>
+                </c:forEach>
 
 
 
 
-                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=3">3</a>
 
 
 
 
-                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=4">4</a>
+<%--                <a href="/EasyBuy/admin/product?action=index&amp;currentPage=2">2</a>--%>
 
 
 
-                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=2" class="p_pre">下一页</a>
 
-                <a href="/EasyBuy_war//admin/product?action=index&amp;currentPage=8" class="p_pre">尾页</a>
+<%--                <a href="/EasyBuy/admin/product?action=index&amp;currentPage=3">3</a>--%>
+
+
+
+
+<%--                <a href="/EasyBuy/admin/product?action=index&amp;currentPage=4">4</a>--%>
+
+
+
+                <a href="/EasyBuy/admin/product?action=index&amp;currentPage=2" class="p_pre">下一页</a>
+
+                <a href="/EasyBuy/admin/product?action=index&amp;currentPage=8" class="p_pre">尾页</a>
 
 
             </div>
