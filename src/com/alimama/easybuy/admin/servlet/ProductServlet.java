@@ -42,7 +42,7 @@ public class ProductServlet extends HttpServlet {
                 Page<Product> page = productService.getPageProductIndex(pageIndex);
                 List<Product> product = page.getNewsList();
                 req.setAttribute("products",product);
-                req.setAttribute("page",page);
+                req.setAttribute("pa",page);
             } catch (Exception e) {
                 e.printStackTrace();
             }
