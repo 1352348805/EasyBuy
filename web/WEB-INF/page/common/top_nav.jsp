@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
+    int i = request.getRequestURL().toString().indexOf("/admin");
 %>
 <div class="soubg">
     <div class="sou">
@@ -136,7 +137,11 @@
 <div class="m_top_bg">
     <div class="top">
         <div class="m_logo"><a href="Index.html"><img src="<%=path%>/images/logo1.png" /></a></div>
-        <c:if test="${request.getRequestURL().toString().indexOf('/admin') == -1}">
+
+        <%
+            //判断网址，后台不显示搜索
+            if (request.getRequestURL().toString().indexOf("/admin") == -1) {
+        %>
             <div class="m_search">
                 <form>
                     <input type="text" value="" class="m_ipt" />
@@ -144,7 +149,9 @@
                 </form>
                 <span class="fl"><a href="#">咖啡</a><a href="#">iphone 6S</a><a href="#">新鲜美食</a><a href="#">蛋糕</a><a href="#">日用品</a><a href="#">连衣裙</a></span>
             </div>
-        </c:if>
+        <%
+            }
+        %>
         <div class="i_car">
             <div class="car_t">购物车 [ <span>3</span> ]</div>
             <div class="car_bg">
