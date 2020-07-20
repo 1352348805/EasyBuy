@@ -123,8 +123,8 @@
                 <a href="/EasyBuy/admin/product?action=index&amp;currentPage=1" class="p_pre">首页</a>
 
 
-                <c:forEach items="${pa.totalPageCount}" var="pages">
-                    <a href="<%=path%>/admin/product?action=index&amp;currentPage=1" class="cur"></a>
+                <c:forEach items="${pa.totalPageCount}" var="pages" begin="${pa.currPageNo}"  step="5">
+                    <a href="<%=path%>/admin/product?action=index&amp;currentPage=${pa.currPageNo}" class="cur">1</a>
                 </c:forEach>
 
 
