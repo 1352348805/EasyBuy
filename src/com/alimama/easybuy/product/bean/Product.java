@@ -93,6 +93,7 @@ public class Product {
         this.isDelete = isDelete;
     }
 
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Product{");
