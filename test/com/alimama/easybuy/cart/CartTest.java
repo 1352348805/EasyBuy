@@ -3,6 +3,13 @@ package com.alimama.easybuy.cart;
 import com.alimama.easybuy.cart.bean.Cart;
 import com.alimama.easybuy.cart.bean.CartItem;
 import com.alimama.easybuy.news.A;
+import com.alimama.easybuy.order.service.OrderService;
+import com.alimama.easybuy.order.service.impl.OrderServiceImpl;
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipayTradeAppPayRequest;
+import com.alipay.api.response.AlipayTradeAppPayResponse;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -36,6 +43,14 @@ public class CartTest {
         cartItems.add(cartItem1);
         cart.setCartItems(cartItems);
         System.out.println(cart.getTotalPrice());
+    }
+
+    @Test
+    public void pay() {
+        OrderServiceImpl orderService = new OrderServiceImpl();
+
+        String result = orderService.payOrder("123321", "1111", "xj", "ttt");
+        System.out.println(result);
     }
 
 }

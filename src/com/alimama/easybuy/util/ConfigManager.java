@@ -19,5 +19,20 @@ public class ConfigManager {
 		}
 		value = params.getProperty(keyString);
 		return value;
-	}  
+	}
+
+	public static String getAlipayProperty(String keyString) {
+		String value = "";
+		Properties params = new Properties();
+		String  configFile = "alipay.properties";
+		InputStream is = BaseDao.class.getClassLoader().getResourceAsStream(configFile);
+		try {
+			params.load(is);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		value = params.getProperty(keyString);
+		return value;
+	}
 }
