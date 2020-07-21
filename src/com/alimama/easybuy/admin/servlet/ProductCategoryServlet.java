@@ -12,7 +12,7 @@ import java.io.IOException;
  * @date 2020/7/21 11:00
  */
 @WebServlet("/admin/productCategory")
-public class ProductCategoryServlet extends HttpServlet {
+public class  ProductCategoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
