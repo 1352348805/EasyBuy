@@ -6,6 +6,15 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alimama.easybuy.order.dao.OrderDao;
+import com.alimama.easybuy.order.dao.impe.OrderDaoImpl;
+import com.alimama.easybuy.order.entity.Order;
+import com.alimama.easybuy.order.service.OrderService;
+import com.alimama.easybuy.util.DatabaseUtil;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author asuk
@@ -56,6 +65,29 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return result;// 支付跳转页的代码
-
     }
+
+    @Override
+    public List<Order> getOrderList () {
+        List<Order> list = null;
+        Connection con = null;
+        try {
+            con = DatabaseUtil.getConnection();
+            OrderDao dao = new OrderDaoImpl(con);
+            list = dao.getOrderList();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+
+        return list;
+    }
+
 }
