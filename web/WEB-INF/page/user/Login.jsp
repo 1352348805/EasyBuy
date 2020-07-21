@@ -62,13 +62,13 @@
                     <span class="fr">还没有商城账号，<a href="Regist.jsp" style="color:#ff4e00;">立即注册</a></span>
                 </td>
               </tr>
-              <tr height="70">
+              <tr height="70">1
                 <td>用户名</td>
-                <td><input type="text" value="" class="l_user" /></td>
+                <td><input type="text" value="" class="l_user"  id="loginName" name="loginName"/></td>
               </tr>
               <tr height="70">
                 <td>密&nbsp; &nbsp; 码</td>
-                <td><input type="password" value="" class="l_pwd" /></td>
+                <td><input type="password" value="" class="l_pwd"  id="password" name="password"/></td>
               </tr>
               <tr>
               	<td>&nbsp;</td>

@@ -13,6 +13,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService{
 
+
     @Override
     public List<User> getUserList() {
         List<User> userList = null;
@@ -34,9 +35,8 @@ public class UserServiceImpl implements UserService{
         }
         return userList;
     }
-
     @Override
-    public User findUserLogin(String name) throws SQLException {
+    public User Login(String name) throws SQLException {
         Connection conn=null;
         conn = DatabaseUtil.getConnection();
         User user=null;

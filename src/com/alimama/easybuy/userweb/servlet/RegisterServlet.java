@@ -1,4 +1,4 @@
-package com.alimama.easybuy.user.servlet;
+package com.alimama.easybuy.userweb.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.alimama.easybuy.to.CommonResult;

@@ -11,7 +11,7 @@ public interface UserService {
     //获取用户列表
     List<User> getUserList();
     //查找用户登入
-    User findUserLogin(String name) throws SQLException;
+    User Login(String name) throws SQLException;
     //用户注册
     CommonResult register(User user);
 }
