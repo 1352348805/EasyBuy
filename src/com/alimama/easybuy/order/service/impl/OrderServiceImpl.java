@@ -107,13 +107,7 @@ public class OrderServiceImpl implements OrderService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            DatabaseUtil.close(con);
         }
 
         return page;

@@ -46,9 +46,9 @@ public class ProductServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            req.getRequestDispatcher("/WEB-INF/page/admin/product/productlist.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_list.jsp").forward(req,resp);
+        } else if ("add".equals(action)) {
+            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_add.jsp").forward(req,resp);
         }
-
-
     }
 }
