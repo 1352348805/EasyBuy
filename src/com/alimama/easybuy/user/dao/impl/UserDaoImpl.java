@@ -24,7 +24,7 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
     // 获取用户登入
     @Override
-    public User findUserLogin(String name) {
+    public User findUserLogin(String name ) {
         User user=null;
         String sql="SELECT * FROM easybuy_user WHERE loginName=?";
         Object [] ob= {name};
