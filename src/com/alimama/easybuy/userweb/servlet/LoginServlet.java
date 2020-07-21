@@ -34,6 +34,6 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        req.getRequestDispatcher("/WEB-INF/page/user/Login.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/page/userweb/Login.jsp").forward(req,resp);
     }
 }
