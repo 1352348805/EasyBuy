@@ -13,7 +13,7 @@ public class Page<T> {
     // 当前页码
     private int currPageNo = 1;
     // 每页数据集合
-    private List<T> newsList;
+    private List<T> data;
 
     public int getCurrPageNo() {
         if (totalPageCount == 0)
@@ -56,12 +56,12 @@ public class Page<T> {
         this.totalPageCount = totalPageCount;
     }
 
-    public List<T> getNewsList() {
-        return newsList;
+    public List<T> getData() {
+        return data;
     }
 
-    public void setNewsList(List<T> newsList) {
-        this.newsList = newsList;
+    public void setData(List<T> data) {
+        this.data = data;
     }
 
     /**

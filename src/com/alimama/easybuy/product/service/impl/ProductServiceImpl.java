@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
             page.setCurrPageNo(pageIndex);  // 计算页码
             //  page.getStartIndex() 以那条数据开始分页
             pagesizelist = productDao.productSelectPagesize(page.getStartIndex(),page.getPageSize());
-            page.setNewsList(pagesizelist);
+            page.setData(pagesizelist);
         }catch(Exception e){
             e.printStackTrace();
         }

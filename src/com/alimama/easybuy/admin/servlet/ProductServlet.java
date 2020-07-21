@@ -40,15 +40,15 @@ public class ProductServlet extends HttpServlet {
                    pageIndex = 1;
                }
                 Page<Product> page = productService.getPageProductIndex(pageIndex);
-                List<Product> product = page.getNewsList();
+                List<Product> product = page.getData();
                 req.setAttribute("products",product);
                 req.setAttribute("pa",page);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            req.getRequestDispatcher("/WEB-INF/page/admin/product/productlist.jsp").forward(req,resp);
+            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_list.jsp").forward(req,resp);
+        } else if ("add".equals(action)) {
+            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_add.jsp").forward(req,resp);
         }
-
-
     }
 }

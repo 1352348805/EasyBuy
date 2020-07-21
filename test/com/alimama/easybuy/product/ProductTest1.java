@@ -27,10 +27,10 @@ public class ProductTest1 {
 //                System.out.println(product.getId());
 //            }
 
-              List<Product> products=page.getNewsList();
+              List<Product> products=page.getData();
 
             System.out.println(products.get(0).getId());
-            System.out.println( page.getNewsList().get(0).getFileName());
+            System.out.println( page.getData().get(0).getFileName());
 
         }catch(Exception e){
             e.printStackTrace();

@@ -28,13 +28,7 @@ public class UserAddressServiceImpl implements UserAddressService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            DatabaseUtil.close(con);
         }
         return userAddressList;
     }
@@ -50,13 +44,7 @@ public class UserAddressServiceImpl implements UserAddressService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            DatabaseUtil.close(con);
         }
         return i;
     }
@@ -72,13 +60,7 @@ public class UserAddressServiceImpl implements UserAddressService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            DatabaseUtil.close(con);
         }
         return i;
     }
@@ -94,13 +76,7 @@ public class UserAddressServiceImpl implements UserAddressService {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            try {
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
+            DatabaseUtil.close(con);
         }
         return i;
     }

@@ -1,11 +1,25 @@
 package com.alimama.easybuy.order.service.impl;
 
 import com.alimama.easybuy.order.service.OrderService;
+import com.alimama.easybuy.order.to.OrderByProductInfo;
+import com.alimama.easybuy.order.to.OrderRelatedProductList;
+import com.alimama.easybuy.product.bean.Product;
 import com.alimama.easybuy.util.Alipay;
+import com.alimama.easybuy.util.Page;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
+import com.alimama.easybuy.order.dao.OrderDao;
+import com.alimama.easybuy.order.dao.impe.OrderDaoImpl;
+import com.alimama.easybuy.order.entity.Order;
+import com.alimama.easybuy.order.service.OrderService;
+import com.alimama.easybuy.util.DatabaseUtil;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author asuk
@@ -56,6 +70,47 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return result;// 支付跳转页的代码
-
     }
+
+    @Override
+    public Page<OrderRelatedProductList> getOrderList (Integer pageIndex) {
+        //封装一个Page实例传给前台
+        Page<OrderRelatedProductList> page = new Page<>();
+        Connection con = null;
+        try {
+            con = DatabaseUtil.getConnection();
+            OrderDao dao = new OrderDaoImpl(con);
+            //先获取总记录数，用于分页
+            Integer count = dao.getOrderCount();
+            //计算总页数
+            page.setTotalCount(count);
+            page.setCurrPageNo(pageIndex);
+            Integer start = page.getStartIndex();
+            List<Order> list = dao.getOrderList(start,page.getPageSize());
+            //当前Order对象已经满足不了我们的业务需求
+            //我们对Order对象进行拓展
+            //进行数据拷贝
+            List<OrderRelatedProductList> orderRelatedProductLists = new ArrayList<>();
+
+            for (int i = 0; i < list.size(); i++) {
+                Order order = list.get(i);
+                OrderRelatedProductList orderRelatedProductList = new OrderRelatedProductList();
+                orderRelatedProductList.setOrderid(order.getOrderid());
+                orderRelatedProductList.setMoony(order.getMoony());
+                orderRelatedProductList.setUser(order.getUser());
+                orderRelatedProductList.setUserAddress(order.getUserAddress());
+                List<OrderByProductInfo> productList = dao.getProductListByOrderId(order.getOrderid());
+                orderRelatedProductList.setProductList(productList);
+                orderRelatedProductLists.add(orderRelatedProductList);
+            }
+            page.setData(orderRelatedProductLists);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            DatabaseUtil.close(con);
+        }
+
+        return page;
+    }
+
 }
