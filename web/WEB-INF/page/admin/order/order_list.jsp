@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
 %>
@@ -39,143 +40,46 @@
             <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
                 <tbody>
 
-                <tr class="td_bg">
-                    <td>用户名:admin</td>
-                    <td><a href="/EasyBuy_war/admin/order?action=queryOrderDeatil&amp;orderId=3">订单号:51718726C1274CC59504AB4E6FD64BA0</a></td>
-                    <td>地址:北京市海淀区大有庄</td>
-                    <td>￥456.0</td>
-                </tr>
-                <tr>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
-                            <tbody>
-                            <tr>
-                                <td width="20%">商品名称</td>
-                                <td width="20%">商品图片</td>
-                                <td width="25%">数量</td>
-                                <td width="25%">价格</td>
-                            </tr>
+                <c:forEach var="order" items="${page.data}" >
+                    <tr class="td_bg">
+                        <td>用户名:admin</td>
+                        <td><a href="/EasyBuy_war/admin/order?action=queryOrderDeatil&amp;orderId=5">订单号:${order.orderid}</a></td>
+                        <td>地址:${order.userAddress}</td>
+                        <td>￥${order.moony}</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
+                                <tbody>
+                                <tr>
+                                    <td width="20%">商品名称</td>
+                                    <td width="20%">商品图片</td>
+                                    <td width="25%">数量</td>
+                                    <td width="25%">价格</td>
+                                </tr>
 
-                            <tr>
-                                <td>香奈儿</td>
-                                <td>
-                                    <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=733" target="_blank">
-                                        <img src="/EasyBuy_war/files/27A1789ED5764D82A5506DF3DC3933F9.jpg" width="50" height="50">
-                                    </a>
-                                </td>
-                                <td>1</td>
-                                <td>152.0</td>
-                            </tr>
+                                <c:forEach var="product" items="${order.productList}">
+                                    <tr>
+                                        <td>${product.productName}</td>
+                                        <td>
+                                            <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=734" target="_blank">
+                                                <img src="<%=path%>/images/D6C9BD438C5643D6B1A6C52E5426FE22.jpg" width="50" height="50">
+                                            </a>
+                                        </td>
+                                        <td>${product.quantity}</td>
+                                        <td>${product.cost}</td>
+                                    </tr>
 
-                            <tr>
-                                <td>洗面奶</td>
-                                <td>
-                                    <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=734" target="_blank">
-                                        <img src="/EasyBuy_war/files/D6C9BD438C5643D6B1A6C52E5426FE22.jpg" width="50" height="50">
-                                    </a>
-                                </td>
-                                <td>1</td>
-                                <td>152.0</td>
-                            </tr>
+                                </c:forEach>
 
-                            <tr>
-                                <td>啫喱水</td>
-                                <td>
-                                    <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=735" target="_blank">
-                                        <img src="/EasyBuy_war/files/1A836D2B3A3348DDAB19807E6CEA8028.jpg" width="50" height="50">
-                                    </a>
-                                </td>
-                                <td>1</td>
-                                <td>152.0</td>
-                            </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr class="td_bg">
-                    <td>用户名:admin</td>
-                    <td><a href="/EasyBuy_war/admin/order?action=queryOrderDeatil&amp;orderId=4">订单号:10206E60A54A4CCC85FCCCE71B64A39D</a></td>
-                    <td>地址:北京市海淀区大有庄</td>
-                    <td>￥152.0</td>
-                </tr>
-                <tr>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
-                            <tbody>
-                            <tr>
-                                <td width="20%">商品名称</td>
-                                <td width="20%">商品图片</td>
-                                <td width="25%">数量</td>
-                                <td width="25%">价格</td>
-                            </tr>
-
-                            <tr>
-                                <td>香奈儿</td>
-                                <td>
-                                    <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=733" target="_blank">
-                                        <img src="/EasyBuy_war/files/27A1789ED5764D82A5506DF3DC3933F9.jpg" width="50" height="50">
-                                    </a>
-                                </td>
-                                <td>1</td>
-                                <td>152.0</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-
-                <tr class="td_bg">
-                    <td>用户名:admin</td>
-                    <td><a href="/EasyBuy_war/admin/order?action=queryOrderDeatil&amp;orderId=5">订单号:C746BB5C16E443A6BACA6690F06BAC6D</a></td>
-                    <td>地址:北京市海淀区大有庄</td>
-                    <td>￥197.0</td>
-                </tr>
-                <tr>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
-                            <tbody>
-                            <tr>
-                                <td width="20%">商品名称</td>
-                                <td width="20%">商品图片</td>
-                                <td width="25%">数量</td>
-                                <td width="25%">价格</td>
-                            </tr>
-
-                            <tr>
-                                <td>洗面奶</td>
-                                <td>
-                                    <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=734" target="_blank">
-                                        <img src="/EasyBuy_war/files/D6C9BD438C5643D6B1A6C52E5426FE22.jpg" width="50" height="50">
-                                    </a>
-                                </td>
-                                <td>1</td>
-                                <td>152.0</td>
-                            </tr>
-
-                            <tr>
-                                <td>润肤露</td>
-                                <td>
-                                    <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=738" target="_blank">
-                                        <img src="/EasyBuy_war/files/3B059EDB5237407980458CE9EA9D3204.jpg" width="50" height="50">
-                                    </a>
-                                </td>
-                                <td>1</td>
-                                <td>45.0</td>
-                            </tr>
-
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
 
                 </tbody>
             </table>
