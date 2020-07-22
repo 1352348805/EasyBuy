@@ -31,7 +31,6 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             page.setPageSize(8);
             page.setTotalCount(count);
             page.setCurrPageNo(pageIndex);
-            System.out.println(page.getTotalPageCount());
             Integer start = page.getStartIndex();
             List<ProductCategoryAndParentInfo> productCategoryList =
                     productCategoryDao.getProductCategoryList(start, page.getPageSize());
