@@ -98,7 +98,7 @@
                 </c:if>
 
                 <c:forEach var="i" begin="${page.currPageNo-3<0?0:page.currPageNo-3}" end="${page.currPageNo-1}">
-                    <c:if test="${i > 0}">
+                    <c:if test="${i > 0 && i<page.totalPageCount}">
                         <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
                     </c:if>
                 </c:forEach>
