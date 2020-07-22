@@ -73,6 +73,12 @@ public class Page<T> {
         return (currPageNo - 1) * pageSize;
     }
 
+    /**
+     * 前台传来的页码类型转换
+     * @param req
+     * @param param
+     * @return
+     */
     public static Integer parseIntPageIndex(HttpServletRequest req, String param) {
         String index = req.getParameter(param);
         Integer i;
