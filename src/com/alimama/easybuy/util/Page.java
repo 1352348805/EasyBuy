@@ -74,7 +74,7 @@ public class Page<T> {
     }
 
     public static Integer parseIntPageIndex(HttpServletRequest req, String param) {
-        String index = req.getParameter("index");
+        String index = req.getParameter(param);
         Integer i;
         try {
             i = Integer.parseInt(index);
