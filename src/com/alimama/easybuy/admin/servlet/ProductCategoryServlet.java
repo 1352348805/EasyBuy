@@ -1,5 +1,10 @@
 package com.alimama.easybuy.admin.servlet;
 
+import com.alimama.easybuy.product.service.ProductCategoryService;
+import com.alimama.easybuy.product.service.impl.ProductCategoryServiceImpl;
+import com.alimama.easybuy.product.to.ProductCategoryAndParentInfo;
+import com.alimama.easybuy.util.Page;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +24,10 @@ public class  ProductCategoryServlet extends HttpServlet {
         String action = req.getParameter("action");
 
         if ("index".equals(action)) {
+            Integer i = Page.parseIntPageIndex(req, "index");
+            ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
+            Page<ProductCategoryAndParentInfo> page = productCategoryService.getProductCategoryList(i);
+            req.setAttribute("page",page);
             req.getRequestDispatcher("/WEB-INF/page/admin/product/product_category_list.jsp").forward(req,resp);
         }
     }

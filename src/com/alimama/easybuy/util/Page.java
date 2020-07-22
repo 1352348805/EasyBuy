@@ -1,6 +1,7 @@
 package com.alimama.easybuy.util;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public class Page<T> {
@@ -70,5 +71,16 @@ public class Page<T> {
      */
     public Integer getStartIndex() {
         return (currPageNo - 1) * pageSize;
+    }
+
+    public static Integer parseIntPageIndex(HttpServletRequest req, String param) {
+        String index = req.getParameter("index");
+        Integer i;
+        try {
+            i = Integer.parseInt(index);
+        } catch (Exception e) {
+            i = 0;
+        }
+        return i;
     }
 }
