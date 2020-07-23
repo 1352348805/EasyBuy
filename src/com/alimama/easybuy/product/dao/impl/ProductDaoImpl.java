@@ -3,7 +3,6 @@ package com.alimama.easybuy.product.dao.impl;
 import com.alimama.easybuy.product.bean.Product;
 import com.alimama.easybuy.product.dao.ProductDao;
 import com.alimama.easybuy.util.BaseDao;
-import com.alimama.easybuy.util.Page;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -89,8 +88,20 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
     }
 
     @Override
-    public boolean productdelete() {
-        return false;
+    public boolean productdelete(Integer id) {
+        String sql = "DELETE FROM `easybuy_product` WHERE id=?";
+        try{
+            Object[] objects = {id};
+            int row = this.executeUpdate(sql,objects);
+            if(row > 0) {
+             return  true;
+            }
+            return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     @Override

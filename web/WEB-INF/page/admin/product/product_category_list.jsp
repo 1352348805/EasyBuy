@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
 %>
@@ -49,157 +50,36 @@
                     <td width="25%">操作</td>
                 </tr>
 
-                <tr>
-                    <td width="5%"><input type="radio" value="548" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>化妆品</td>
-                    <td>
-
-                        一级分类
-
-
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(548,1);">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td width="5%"><input type="radio" value="628" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>家用商品</td>
-                    <td>
-
-                        一级分类
-
-
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(628,1);">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td width="5%"><input type="radio" value="654" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>面部护理</td>
-                    <td>
-
-
-                        二级分类
-
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(654,2);">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td width="5%"><input type="radio" value="655" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>少女派</td>
-                    <td>
-
-
-
-                        三级分类
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(655,3);">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td width="5%"><input type="radio" value="656" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>餐具</td>
-                    <td>
-
-
-                        二级分类
-
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(656,2);">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td width="5%"><input type="radio" value="657" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>卫具</td>
-                    <td>
-
-
-                        二级分类
-
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(657,2);">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td width="5%"><input type="radio" value="658" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>叉子</td>
-                    <td>
-
-
-
-                        三级分类
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(658,3);">删除</a></td>
-                </tr>
-
-                <tr>
-                    <td width="5%"><input type="radio" value="659" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                    <td>锅</td>
-                    <td>
-
-
-
-                        三级分类
-
-                    </td>
-                    <td>
-
-                        无
-
-
-                    </td>
-                    <td><a href="javascript:void(0);" onclick="deleteProductCategory(659,3);">删除</a></td>
-                </tr>
+                <c:forEach var="category" items="${page.data}">
+                    <tr>
+                        <td width="5%"><input type="radio" value="548" name="select" onclick="toUpdateProductCategoryList(this);"></td>
+                        <td>${category.name}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${category.type==1}">
+                                    一级分类
+                                </c:when>
+                                <c:when test="${category.type==2}">
+                                    二级分类
+                                </c:when>
+                                <c:otherwise>
+                                    三级分类
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${category.type == 1}">
+                                    无
+                                </c:when>
+                                <c:otherwise>
+                                    ${category.pname}
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td><a href="javascript:void(0);" onclick="deleteProductCategory(548,1);">删除</a></td>
+                    </tr>
+                </c:forEach>
 
                 </tbody>
             </table>
@@ -211,33 +91,31 @@
             </script>
             <div class="pages">
 
-                <a href="/EasyBuy_war//admin/productCategory?action=index&amp;currentPage=1" class="p_pre">首页</a>
+                <a href="<%=path%>/admin/productCategory?action=index&index=1" class="p_pre">首页</a>
+
+                <c:if test="${page.currPageNo > 1}">
+                    <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo-1}" class="p_pre">上一页</a>
+                </c:if>
+
+                <c:forEach var="i" begin="${page.currPageNo-3<0?0:page.currPageNo-3}" end="${page.currPageNo-1}">
+                    <c:if test="${i > 0 && i<page.totalPageCount}">
+                        <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
+                    </c:if>
+                </c:forEach>
+                <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo}" class="cur">${page.currPageNo}</a>
+
+                <c:forEach var="i" begin="${page.currPageNo+1}" end="${page.currPageNo+3}">
+                    <c:if test="${i <= page.totalPageCount}">
+                        <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
+                    </c:if>
+                </c:forEach>
 
 
+                <c:if test="${page.currPageNo < page.totalPageCount}">
+                    <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo+1}" class="p_pre">下一页</a>
+                </c:if>
 
-                <a href="/EasyBuy_war//admin/productCategory?action=index&amp;currentPage=1" class="cur">1</a>
-
-
-
-
-
-                <a href="/EasyBuy_war//admin/productCategory?action=index&amp;currentPage=2">2</a>
-
-
-
-
-                <a href="/EasyBuy_war//admin/productCategory?action=index&amp;currentPage=3">3</a>
-
-
-
-
-                <a href="/EasyBuy_war//admin/productCategory?action=index&amp;currentPage=4">4</a>
-
-
-
-                <a href="/EasyBuy_war//admin/productCategory?action=index&amp;currentPage=2" class="p_pre">下一页</a>
-
-                <a href="/EasyBuy_war//admin/productCategory?action=index&amp;currentPage=5" class="p_pre">尾页</a>
+                <a href="<%=path%>/admin/productCategory?action=index&index=${page.totalPageCount}" class="p_pre">尾页</a>
 
 
             </div>

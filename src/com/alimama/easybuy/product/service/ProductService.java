@@ -11,6 +11,22 @@ import java.util.List;
  */
 public interface ProductService {
 
-    // 查询数据并进行分页
-    public Page<Product> getPageProductIndex(int pageIndex) throws Exception;
+    /**
+     *@Description 查询数据并进行分页
+     *@Param
+     *@Author Wang.li.ming
+     *@Date 2020/7/22
+     *@Time 17:17
+     */
+    Page<Product> getPageProductIndex(int pageIndex) throws Exception;
+
+    /**
+     *@Description 以id删除商品
+     *@Param id
+     *@Author Wang.li.ming
+     *@Date 2020/7/22
+     *@Time 17:16
+     */
+    boolean productInfoByIdDelete (Integer id);
+
 }

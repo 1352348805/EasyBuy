@@ -36,4 +36,20 @@ public class ProductServiceImpl implements ProductService {
         }
         return page;
     }
+
+    @Override
+    public boolean productInfoByIdDelete(Integer id) {
+        Connection con = null;
+        try{
+            con=DatabaseUtil.getConnection();
+            ProductDao productDao = new ProductDaoImpl(con);
+            if(productDao.productdelete(id)){
+               return true;
+            }
+            return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
