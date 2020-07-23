@@ -1,7 +1,6 @@
 package com.alimama.easybuy.product.dao;
 
 import com.alimama.easybuy.product.bean.Product;
-import com.alimama.easybuy.util.Page;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public interface ProductDao {
      boolean productadd() throws Exception;
 
     // 后台管理 - 删除商品接口
-     boolean productdelete() throws Exception;
+     boolean productdelete(Integer id) throws Exception;
 
     /**
      * 后台管理 - 查询多个商品ID接口

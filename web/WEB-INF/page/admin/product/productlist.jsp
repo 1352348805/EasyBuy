@@ -19,6 +19,27 @@
 
     <script type="text/javascript" src="<%=path%>/js/select.js"></script>
 
+    <script>
+            function deleteById(productid) {
+                var bool = confirm("确认删除此商品信息么?");
+                if (bool == true) {
+                    $.ajax({
+                        url: "<%=path%>/admin/product?productid="+productid,
+                        type: "delete",
+                        dataType: "json",
+                        success: function (data) {
+                            alert(data.message);
+                            location.href="<%=path%>/admin/product?action=index";
+                        },
+                        error: function (data) {
+                            alert(data.message);
+                        }
+
+                    });
+
+                }
+            }
+    </script>
 
     <title>尤洪</title>
 </head>
@@ -54,7 +75,7 @@
                         <td>${product.stock}</td>
                         <td>${product.price}</td>
                         <td><a href="/EasyBuy/admin/product?action=toUpdateProduct&amp;id=733">修改</a></td>
-                        <td><a href="javascript:void(0);" onclick="deleteById('733');">删除</a></td>
+                        <td><a href="javascript:void(0);" onclick="deleteById(${product.id});">删除</a></td>
                     </tr>
                 </c:forEach>
 
@@ -141,17 +162,43 @@
 
 
 
-                        <a class="p_pre" href="<%=path%>/admin/product?action=index&amp;currentPage=1">首页</a>
-                        <c:if test="${p.currPageNo -1 > 0}">
-                            <a class="p_pre"
-                               href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo-1}">上一页</a>
-                        </c:if>
-                        <c:if test="${p.currPageNo<p.totalPageCount}">
-                            <a class="p_pre"
-                               href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo+1}">下一页</a>
-                        </c:if>
-                        <a class="p_pre"
-                           href="<%=path%>/admin/product?action=index&amp;currentPage=${p.totalPageCount}">尾页</a>
+<%--                        <a class="p_pre" href="<%=path%>/admin/product?action=index&amp;currentPage=1">首页</a>--%>
+<%--                        <c:if test="${p.currPageNo -1 > 0}">--%>
+<%--                            <a class="p_pre"--%>
+<%--                               href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo-1}">上一页</a>--%>
+<%--                        </c:if>--%>
+<%--                        <c:if test="${p.currPageNo<p.totalPageCount}">--%>
+<%--                            <a class="p_pre"--%>
+<%--                               href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo+1}">下一页</a>--%>
+<%--                        </c:if>--%>
+<%--                        <a class="p_pre"--%>
+<%--                           href="<%=path%>/admin/product?action=index&amp;currentPage=${p.totalPageCount}">尾页</a>--%>
+
+                            <a href="<%=path%>/admin/product?action=index&amp;currentPage=1" class="p_pre">首页</a>
+
+                            <c:if test="${page.currPageNo > 1}">
+                                <a href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo-1}" class="p_pre">上一页</a>
+                            </c:if>
+
+                            <c:forEach var="i" begin="${page.currPageNo-3<0?0:page.currPageNo-3}" end="${page.currPageNo-1}">
+                                <c:if test="${i > 0 && i<page.totalPageCount}">
+                                    <a href="<%=path%>/admin/product?action=index&amp;currentPage=${i}">${i}</a>
+                                </c:if>
+                            </c:forEach>
+                            <a href="<%=path%>/admin/product?action=index&amp;currentPage=${page.currPageNo}" class="cur">${page.currPageNo}</a>
+
+                            <c:forEach var="i" begin="${page.currPageNo+1}" end="${page.currPageNo+3}">
+                                <c:if test="${i <= page.totalPageCount}">
+                                    <a href="<%=path%>/admin/product?action=index&amp;currentPage=${i}">${i}</a>
+                                </c:if>
+                            </c:forEach>
+
+
+                            <c:if test="${page.currPageNo < page.totalPageCount}">
+                                <a href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo+1}" class="p_pre">下一页</a>
+                            </c:if>
+
+                            <a href="<%=path%>/admin/product?action=index&amp;currentPage=${p.totalPageCount}" class="p_pre">尾页</a>
             </div>
 
         </div>
