@@ -27,6 +27,7 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        // 查询入口
         if ("index".equals(action)) {
             ProductService productService = new ProductServiceImpl();
             try {
@@ -49,7 +50,19 @@ public class ProductServlet extends HttpServlet {
                 e.printStackTrace();
             }
             req.getRequestDispatcher("/WEB-INF/page/admin/product/product_list.jsp").forward(req,resp);
-        } else if ("add".equals(action)) {
+        }
+        // 修改入口
+        else if("toUpdateProduct".equals(action)){
+            ProductService productService = new ProductServiceImpl();
+            try{
+                String productid = req.getParameter("productid");
+            }catch(Exception e){
+             e.printStackTrace();
+            }
+            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_add.jsp").forward(req,resp);
+        }
+        // 添加入口
+        else if ("add".equals(action)) {
             req.getRequestDispatcher("/WEB-INF/page/admin/product/product_add.jsp").forward(req,resp);
         }
 

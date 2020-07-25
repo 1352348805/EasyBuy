@@ -10,14 +10,14 @@ import com.alimama.easybuy.util.Page;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Jun Xiao
  * @date 2020/7/20 10:43
  */
 public class ProductTest1 {
+    static String s ;
     @Test
     public void test1()  {
         try{
@@ -49,5 +49,42 @@ public class ProductTest1 {
             Product p = products.get(i);
             System.out.println(p.getName());
         }
+    }
+    @Test
+    public void test4(){
+
+        TreeSet<String>  s =new TreeSet<String>();
+        s.add("one");
+        s.add("two");
+        SortedSet<String> sorted = s.tailSet(s.first());
+        for (String s2 : sorted){
+            System.out.println(s2+"");
+        }
+
+
+        HashMap<Integer,String> hmap = new HashMap<Integer , String >();
+        hmap.put(1,"java");
+        hmap.put(6,"javascript");
+        hmap.put(5,"Oracle");
+        hmap.put(9,"Mysql");
+        for(Integer i : hmap.keySet()){
+            System.out.println(hmap.get(i));
+        }
+        System.out.println(hmap.get(6));
+
+        List list = new ArrayList();
+        list.add("2");
+        list.add("3");
+        list.add("4");
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()){
+            System.out.println(iterator.next());
+        }
+
+        Hashtable hashtable = new Hashtable();
+       // hashtable.put(null,""); hastable 的键不能为空
+        hashtable.put("d","6");
+        System.out.println(hashtable.get(null));
+
     }
 }
