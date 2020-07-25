@@ -18,13 +18,31 @@
     <script type="text/javascript" src="<%=path%>/js/menu.js"></script>
         
 	<script type="text/javascript" src="<%=path%>/js/select.js"></script>
-        
+    <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
     
 <title>尤洪</title>
 </head>
 <body>  
 <!--Begin Header Begin-->
 <jsp:include page="../../common/top_nav.jsp" />
+<div id="fade1" class="black_overlay" style="display: none; height: 1026px;"></div>
+<div id="MyDiv1" class="white_content" style="display: none;">
+    <div class="white_d">
+        <div class="notice_t">
+            <span class="fr" style="margin-top:10px; cursor:pointer;" onclick="CloseDiv_1('MyDiv1','fade1')"><img src="<%=path%>/images/close.gif"></span>
+        </div>
+        <div class="notice_c">
+            <table border="0" align="center" cellspacing="0" cellpadding="0">
+                <tbody><tr valign="top">
+                    <td width="40"><img src="<%=path%>/images/suc.png"></td>
+                    <td>
+                        <span style="color:#3e3e3e; font-size:18px; font-weight:bold;" id="showMessage">..</span><br>
+                    </td>
+                </tr>
+                </tbody></table>
+        </div>
+    </div>
+</div>
 <!--End Header End--> 
 <div class="i_bg bg_color">
     <!--Begin 分类中心 Begin -->
@@ -52,7 +70,7 @@
 
                 <c:forEach var="category" items="${page.data}">
                     <tr>
-                        <td width="5%"><input type="radio" value="548" name="select" onclick="toUpdateProductCategoryList(this);"></td>
+                        <td width="5%"><input type="radio" value="${category.id}" name="select" onclick="toUpdateProductCategoryList(this);"></td>
                         <td>${category.name}</td>
                         <td>
                             <c:choose>
@@ -73,11 +91,11 @@
                                     无
                                 </c:when>
                                 <c:otherwise>
-                                    ${category.pname}
+                                    ${category.parents[0].name}
                                 </c:otherwise>
                             </c:choose>
                         </td>
-                        <td><a href="javascript:void(0);" onclick="deleteProductCategory(548,1);">删除</a></td>
+                        <td><a href="javascript:void(0);" onclick="deleteProductCategory(${category.id},1);">删除</a></td>
                     </tr>
                 </c:forEach>
 
@@ -85,10 +103,6 @@
             </table>
 
 
-
-            <script type="text/javascript">
-                var contextPath = "/EasyBuy_war";
-            </script>
             <div class="pages">
 
                 <a href="<%=path%>/admin/productCategory?action=index&index=1" class="p_pre">首页</a>
@@ -209,6 +223,7 @@
     </div>
     <!--End Footer End -->    
 </div>
+<input type="hidden" id="path" value="<%=path%>" />
 
 </body>
 
@@ -217,3 +232,5 @@
 <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
 <![endif]-->
 </html>
+<script src="<%=path%>/js/jquery-1.8.2.min.js"></script>
+<script src="<%=path%>/js/product/product_category.js"></script>
