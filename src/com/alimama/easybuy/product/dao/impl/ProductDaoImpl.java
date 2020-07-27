@@ -6,6 +6,7 @@ import com.alimama.easybuy.util.BaseDao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,38 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
             e.printStackTrace();
         }
         return productpagesize;
+    }
+
+    @Override
+    public Product selectProductByid(Integer id){
+        String sql = "SELECT * FROM `easybuy_product` WHERE id = ? ";
+        Product productdao = null;
+        try{
+           ResultSet rs = this.executeQuery(sql,id);
+           while(rs.next()){
+               productdao = packagingProductData(rs);
+           }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return productdao;
+    }
+
+    @Override
+    public List<Product> selectProductParentOneinfo(Integer categoryLeveOneId){
+        List<Product> SelectCategoryLeveOneIdList = new ArrayList<>();
+        String sql = " SELECT * FROM `easybuy_product` WHERE `categoryLevel1Id` = ?";
+        Product productdao = null;
+        try{
+          ResultSet rs = this.executeQuery(sql,categoryLeveOneId);
+          while(rs.next()){
+              productdao = packagingProductData(rs);
+              SelectCategoryLeveOneIdList.add(productdao);
+          }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return SelectCategoryLeveOneIdList;
     }
 
     @Override
@@ -135,4 +168,20 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
         }
         return products;
     }
+
+    private Product packagingProductData(ResultSet rs) throws SQLException {
+        Product product = new Product();
+        product.setId(rs.getInt("id"));
+        product.setName(rs.getString("name"));
+        product.setDescription(rs.getString("description"));
+        product.setPrice(rs.getFloat("price"));
+        product.setStock(rs.getInt("stock"));
+        product.setCategoryLevel1Id(rs.getInt("categoryLevel1Id"));
+        product.setCategoryLevel2Id(rs.getInt("categoryLevel2Id"));
+        product.setCategoryLevel3Id(rs.getInt("categoryLevel3Id"));
+        product.setFileName(rs.getString("fileName"));
+        product.setIsDelete(rs.getInt("isDelete"));
+       return product;
+    }
+
 }
