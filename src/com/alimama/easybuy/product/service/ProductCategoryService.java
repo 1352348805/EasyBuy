@@ -15,4 +15,18 @@ public interface ProductCategoryService {
     //获取分类列表
     Page<ProductCategoryAndParentInfo> getProductCategoryList(Integer pageIndex);
 
+    //删除分类
+    Integer deleteProductCategoryById(Integer id);
+
+    //修改分类
+    Integer modifyProductCategory(ProductCategory productCategory);
+
+    //添加分类
+    Integer insertProductCategory(ProductCategory productCategory);
+
+    //根据id获取分类及其父分类信息
+    ProductCategoryAndParentInfo getProductCategoryAndParent(Integer id);
+
+    //获取指定分类
+    List<ProductCategory> getProductCategoryListByParentId(Integer parentId);
 }

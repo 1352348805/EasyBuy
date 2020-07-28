@@ -27,6 +27,24 @@ public interface ProductService {
      *@Date 2020/7/22
      *@Time 17:16
      */
-    boolean productInfoByIdDelete (Integer id);
+    boolean productInfoByIdDelete (Integer id) throws Exception;
+
+    /**
+     *@Description 后台管理 - 以商品id查询商品
+     *@Param
+     *@Author Wang.li.ming
+     *@Date 2020/7/27
+     *@Time 17:12
+     */
+    Product getProductById(Integer id) throws Exception;
+
+    /**
+     *@Description 后台管理 -  查询一级分类的所有商品
+     *@Param
+     *@Author Wang.li.ming
+     *@Date 2020/7/27
+     *@Time 19:48
+     */
+    List<Product> getProductParentOneinfo(Integer categoryLeveOneId) throws Exception;
 
 }

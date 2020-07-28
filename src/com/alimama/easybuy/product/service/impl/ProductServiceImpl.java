@@ -31,8 +31,10 @@ public class ProductServiceImpl implements ProductService {
             //  page.getStartIndex() 以那条数据开始分页
             pagesizelist = productDao.productSelectPagesize(page.getStartIndex(),page.getPageSize());
             page.setData(pagesizelist);
-        }catch(Exception e){
+        }catch(Exception e) {
             e.printStackTrace();
+        }finally{
+            DatabaseUtil.close(con);
         }
         return page;
     }
@@ -50,6 +52,40 @@ public class ProductServiceImpl implements ProductService {
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }finally{
+            DatabaseUtil.close(con);
         }
+    }
+
+    @Override
+    public Product getProductById(Integer id) throws Exception {
+        Connection con = null;
+        Product productservice = null;
+        try{
+            con = DatabaseUtil.getConnection();
+            ProductDao productDao = new ProductDaoImpl(con);
+            productservice = productDao.selectProductByid(id);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            DatabaseUtil.close(con);
+        }
+        return productservice;
+    }
+
+    @Override
+    public List<Product> getProductParentOneinfo(Integer categoryLeveOneId){
+        Connection con = null;
+        List<Product> ProductParentOneinfoList = new ArrayList<>();
+        try{
+          con = DatabaseUtil.getConnection();
+          ProductDao productDao = new ProductDaoImpl(con);
+          ProductParentOneinfoList = productDao.selectProductParentOneinfo(categoryLeveOneId);
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally {
+            DatabaseUtil.close(con);
+        }
+        return ProductParentOneinfoList;
     }
 }

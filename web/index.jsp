@@ -12,6 +12,8 @@
     <title>Title</title>
 </head>
 <body>
+
+
 <%
     Connection connection = DatabaseUtil.getConnection();
     out.print(connection);

@@ -18,31 +18,13 @@
     <script type="text/javascript" src="<%=path%>/js/menu.js"></script>
         
 	<script type="text/javascript" src="<%=path%>/js/select.js"></script>
-    <script type="text/javascript" src="<%=path%>/js/shade.js"></script>
+        
     
 <title>尤洪</title>
 </head>
 <body>  
 <!--Begin Header Begin-->
 <jsp:include page="../../common/top_nav.jsp" />
-<div id="fade1" class="black_overlay" style="display: none; height: 1026px;"></div>
-<div id="MyDiv1" class="white_content" style="display: none;">
-    <div class="white_d">
-        <div class="notice_t">
-            <span class="fr" style="margin-top:10px; cursor:pointer;" onclick="CloseDiv_1('MyDiv1','fade1')"><img src="<%=path%>/images/close.gif"></span>
-        </div>
-        <div class="notice_c">
-            <table border="0" align="center" cellspacing="0" cellpadding="0">
-                <tbody><tr valign="top">
-                    <td width="40"><img src="<%=path%>/images/suc.png"></td>
-                    <td>
-                        <span style="color:#3e3e3e; font-size:18px; font-weight:bold;" id="showMessage">..</span><br>
-                    </td>
-                </tr>
-                </tbody></table>
-        </div>
-    </div>
-</div>
 <!--End Header End--> 
 <div class="i_bg bg_color">
     <!--Begin 分类中心 Begin -->
@@ -52,91 +34,118 @@
 
         <jsp:include page="../../common/left_nav.jsp" />
         <div class="m_right" id="content">
-            <div class="mem_tit">分类列表</div>
-            <p align="right">
-                <a href="javascript:void(0);" onclick="toAddProductCategory();" class="add_b">添加分类</a>
-                <br>
-            </p>
+            <div class="mem_tit">
+
+
+                添加商品
+
+
+
+            </div>
+
             <br>
-            <table border="0" class="order_tab" style="width:930px; text-align:center; margin-bottom:30px;" cellspacing="0" cellpadding="0">
-                <tbody>
-                <tr>
-                    <td width="5%">选择</td>
-                    <td width="20%">分类名称</td>
-                    <td width="25%">分类级别</td>
-                    <td width="25%">父级分类</td>
-                    <td width="25%">操作</td>
-                </tr>
+            <form action="/EasyBuy_war/admin/product?action=addProduct" method="post" enctype="multipart/form-data" id="productAdd" onsubmit="return checkProduct();">
+                <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td width="135" align="right">一级分类</td>
+                        <td colspan="3" style="font-family:'宋体';">
+                        <select name="categoryLevel1Id" style="background-color:#f6f6f6;" id="productCategoryLevel1" onchange="queryProductCategoryList(this,'productCategoryLevel2');">
+                               <option value="" selected="selected">请选择...</option>
+                            <c:forEach items="${oneType}" var="onetype" >
+                                <c:choose>
+                                    <c:when test="${onetype.id eq productbyinfo.categoryLevel1Id}">
+                                        <option value="${onetype.id}" selected="selected">${onetype.name}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${onetype.id}">${onetype.name}</option>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </select>
+                        </td>
 
-                <c:forEach var="category" items="${page.data}">
-                    <tr>
-                        <td width="5%"><input type="radio" value="${category.id}" name="select" onclick="toUpdateProductCategoryList(this);"></td>
-                        <td>${category.name}</td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${category.type==1}">
-                                    一级分类
-                                </c:when>
-                                <c:when test="${category.type==2}">
-                                    二级分类
-                                </c:when>
-                                <c:otherwise>
-                                    三级分类
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td>
-                            <c:choose>
-                                <c:when test="${category.type == 1}">
-                                    无
-                                </c:when>
-                                <c:otherwise>
-                                    ${category.parents[0].name}
-                                </c:otherwise>
-                            </c:choose>
-                        </td>
-                        <td><a href="javascript:void(0);" onclick="deleteProductCategory(${category.id},1);">删除</a></td>
+<%--                        <td colspan="3" style="font-family:'宋体';">--%>
+<%--                            <select name="categoryLevel1Id" style="background-color:#f6f6f6;" id="productCategoryLevel1" onchange="queryProductCategoryList(this,'productCategoryLevel2');">--%>
+<%--                                <option value="" selected="selected">请选择...</option>--%>
+
+<%--                                <option value="548">化妆品</option>--%>
+
+<%--                                <option value="628">家用商品</option>--%>
+
+<%--                                <option value="660">进口食品,生鲜</option>--%>
+
+<%--                                <option value="670">电子商品</option>--%>
+
+<%--                                <option value="676">保健食品</option>--%>
+
+<%--                                <option value="681">箱包</option>--%>
+
+<%--                            </select>--%>
+<%--                        </td>--%>
                     </tr>
-                </c:forEach>
+                    <tr>
+                        <td width="135" align="right">二级分类</td>
+                        <td>
+                            <select name="categoryLevel2Id" style="background-color:#f6f6f6;" id="productCategoryLevel2" onchange="queryProductCategoryList(this,'productCategoryLevel3');">
+                                <option value="0" selected="selected">请选择...</option>
 
-                </tbody>
-            </table>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">三级分类</td>
+                        <td>
+                            <select name="categoryLevel3Id" style="background-color:#f6f6f6;" id="productCategoryLevel3">
+                                <option value="0" selected="selected">请选择...</option>
+
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">商品名称</td>
+                        <td>
+                            <input type="text" value="" class="add_ipt" name="name" id="name">（必填）
+                            <input type="hidden" name="id" value="" id="id">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">商品图片</td>
+                        <td>
+
+                            <input type="file" class="text" name="photo"><span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">单价</td>
+                        <td>
+                            <input type="text" value="" class="add_ipt" name="price" id="price">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">库存</td>
+                        <td>
+                            <input type="text" value="" class="add_ipt" name="stock" id="stock">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="135" align="right">描述</td>
+                        <td>
+                            <textarea name="description"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
 
 
-            <div class="pages">
-
-                <a href="<%=path%>/admin/productCategory?action=index&index=1" class="p_pre">首页</a>
-
-                <c:if test="${page.currPageNo > 1}">
-                    <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo-1}" class="p_pre">上一页</a>
-                </c:if>
-
-                <c:forEach var="i" begin="${page.currPageNo-3<0?0:page.currPageNo-3}" end="${page.currPageNo-1}">
-                    <c:if test="${i > 0 && i<page.totalPageCount}">
-                        <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
-                    </c:if>
-                </c:forEach>
-                <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo}" class="cur">${page.currPageNo}</a>
-
-                <c:forEach var="i" begin="${page.currPageNo+1}" end="${page.currPageNo+3}">
-                    <c:if test="${i <= page.totalPageCount}">
-                        <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
-                    </c:if>
-                </c:forEach>
+                            <input type="submit" value="商品上架" class="s_btn">
 
 
-                <c:if test="${page.currPageNo < page.totalPageCount}">
-                    <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo+1}" class="p_pre">下一页</a>
-                </c:if>
 
-                <a href="<%=path%>/admin/productCategory?action=index&index=${page.totalPageCount}" class="p_pre">尾页</a>
-
-
-            </div>
-
-            <div id="addProductCategory">
-
-            </div>
+                        </td>
+                    </tr>
+                    </tbody></table>
+            </form>
         </div>
     </div>
 	<!--End 分类中心 End-->
@@ -223,7 +232,6 @@
     </div>
     <!--End Footer End -->    
 </div>
-<input type="hidden" id="path" value="<%=path%>" />
 
 </body>
 
@@ -232,5 +240,3 @@
 <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
 <![endif]-->
 </html>
-<script src="<%=path%>/js/jquery-1.8.2.min.js"></script>
-<script src="<%=path%>/js/product/product_category.js"></script>

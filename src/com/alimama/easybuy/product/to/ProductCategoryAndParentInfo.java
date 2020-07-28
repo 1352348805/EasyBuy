@@ -2,29 +2,23 @@ package com.alimama.easybuy.product.to;
 
 import com.alimama.easybuy.product.bean.ProductCategory;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @author asuk
  * @date 2020/7/22 12:15
  */
 public class ProductCategoryAndParentInfo extends ProductCategory {
 
-    private String pname;
+    private LinkedList<ProductCategory> parents;
 
-    private Integer ptype;
-
-    public String getPname() {
-        return pname;
+    public LinkedList<ProductCategory> getParents() {
+        return parents;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
-    }
-
-    public Integer getPtype() {
-        return ptype;
-    }
-
-    public void setPtype(Integer ptype) {
-        this.ptype = ptype;
+    public void setParents(LinkedList<ProductCategory> parents) {
+        this.parents = parents;
     }
 }

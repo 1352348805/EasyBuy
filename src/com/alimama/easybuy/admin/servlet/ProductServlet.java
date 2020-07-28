@@ -2,7 +2,10 @@ package com.alimama.easybuy.admin.servlet;
 
 import com.alibaba.fastjson.JSON;
 import com.alimama.easybuy.product.bean.Product;
+import com.alimama.easybuy.product.bean.ProductCategory;
+import com.alimama.easybuy.product.service.ProductCategoryService;
 import com.alimama.easybuy.product.service.ProductService;
+import com.alimama.easybuy.product.service.impl.ProductCategoryServiceImpl;
 import com.alimama.easybuy.product.service.impl.ProductServiceImpl;
 import com.alimama.easybuy.to.CommonResult;
 import com.alimama.easybuy.util.Page;
@@ -27,6 +30,7 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
+        // 查询入口
         if ("index".equals(action)) {
             ProductService productService = new ProductServiceImpl();
             try {
@@ -49,7 +53,33 @@ public class ProductServlet extends HttpServlet {
                 e.printStackTrace();
             }
             req.getRequestDispatcher("/WEB-INF/page/admin/product/product_list.jsp").forward(req,resp);
-        } else if ("add".equals(action)) {
+        }
+        // 修改入口
+        else if("toUpdateProduct".equals(action)){
+            ProductService productService = new ProductServiceImpl();
+            ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
+            try{
+                Integer productid = Integer.parseInt(req.getParameter("productid"));
+                 // 拿到要修改商品的id，进行把数据填充到jsp页面表单中
+                Product product = productService.getProductById(productid);
+                req.setAttribute("productbyinfo",product);
+                 // 三级分类
+                List<ProductCategory> oneType = productCategoryService.getProductCategoryListByParentId(0);
+                req.setAttribute("oneType",oneType);
+
+                List<ProductCategory> twoType = productCategoryService.getProductCategoryListByParentId(product.getCategoryLevel2Id());
+                req.setAttribute("twoType",twoType);
+
+                List<ProductCategory> threeType = productCategoryService.getProductCategoryListByParentId(product.getCategoryLevel3Id());
+                req.setAttribute("threeType",threeType);
+
+            }catch(Exception e){
+             e.printStackTrace();
+            }
+            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_update.jsp").forward(req,resp);
+        }
+        // 添加入口
+        else if ("add".equals(action)) {
             req.getRequestDispatcher("/WEB-INF/page/admin/product/product_add.jsp").forward(req,resp);
         }
 

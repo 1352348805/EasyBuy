@@ -39,6 +39,8 @@
 
                 }
             }
+
+
     </script>
 
     <title>尤洪</title>
@@ -68,13 +70,13 @@
                     <tr>
                         <td>${product.name}</td>
                         <td>
-                            <a href="/EasyBuy/Product?action=queryProductDeatil&amp;id=733" target="_blank">
+                            <a href="<%=path%>/admin/product?action=toUpdateProduct&amp;productid=${product.id}" target="_blank">
                                 <img src="<%=path%>/images/${product.fileName}" width="50" height="50">
                             </a>
                         </td>
                         <td>${product.stock}</td>
                         <td>${product.price}</td>
-                        <td><a href="/EasyBuy/admin/product?action=toUpdateProduct&amp;id=733">修改</a></td>
+                        <td><a href="<%=path%>/admin/product?action=toUpdateProduct&amp;productid=${product.id}">修改</a></td>
                         <td><a href="javascript:void(0);" onclick="deleteById(${product.id});">删除</a></td>
                     </tr>
                 </c:forEach>
@@ -177,7 +179,7 @@
                             <a href="<%=path%>/admin/product?action=index&amp;currentPage=1" class="p_pre">首页</a>
 
                             <c:if test="${page.currPageNo > 1}">
-                                <a href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo-1}" class="p_pre">上一页</a>
+                                <a href="<%=path%>/admin/product?action=index&amp;currentPage=${page.currPageNo-1}" class="p_pre">上一页</a>
                             </c:if>
 
                             <c:forEach var="i" begin="${page.currPageNo-3<0?0:page.currPageNo-3}" end="${page.currPageNo-1}">
@@ -195,10 +197,10 @@
 
 
                             <c:if test="${page.currPageNo < page.totalPageCount}">
-                                <a href="<%=path%>/admin/product?action=index&amp;currentPage=${p.currPageNo+1}" class="p_pre">下一页</a>
+                                <a href="<%=path%>/admin/product?action=index&amp;currentPage=${page.currPageNo+1}" class="p_pre">下一页</a>
                             </c:if>
 
-                            <a href="<%=path%>/admin/product?action=index&amp;currentPage=${p.totalPageCount}" class="p_pre">尾页</a>
+                            <a href="<%=path%>/admin/product?action=index&amp;currentPage=${page.totalPageCount}" class="p_pre">尾页</a>
             </div>
 
         </div>
