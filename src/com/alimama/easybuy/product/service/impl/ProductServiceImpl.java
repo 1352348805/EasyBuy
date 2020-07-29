@@ -27,10 +27,11 @@ public class ProductServiceImpl implements ProductService {
             con = DatabaseUtil.getConnection();
             ProductDao productDao = new ProductDaoImpl(con);
             int count = productDao.productSelectTotalCount(queryParam);
+            page.setPageSize(pageSize);
             page.setTotalCount(count); // 计算总数据
             page.setCurrPageNo(pageIndex);  // 计算页码
             //  page.getStartIndex() 以那条数据开始分页
-            pagesizelist = productDao.productSelectPagesize(queryParam,page.getStartIndex(),pageSize);
+            pagesizelist = productDao.productSelectPagesize(queryParam,page.getStartIndex(),page.getPageSize());
             page.setData(pagesizelist);
         }catch(Exception e) {
             e.printStackTrace();

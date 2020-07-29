@@ -138,18 +138,18 @@
     </div>
 </div>
 <div class="top">
-    <div class="m_logo"><a href="Index.html"><img src="<%=path%>/images/logo.png" /></a></div>
+    <div class="logo"><a href="Index.html"><img src="<%=path%>/images/logo.png" /></a></div>
 
     <%
         //判断网址，后台不显示搜索
         if (request.getRequestURL().toString().indexOf("/admin") == -1) {
     %>
     <div class="search">
-        <form>
+        <form action="<%=path%>/Login" method="get">
             <input type="text" value="" class="s_ipt" />
             <input type="submit" value="搜索" class="s_btn" />
         </form>
-        <span class="fl"><a href="#">咖啡</a><a href="#">iphone 6S</a><a href="#">新鲜美食</a><a href="#">蛋糕</a><a href="#">日用品</a><a href="#">连衣裙</a></span>
+<%--        <span class="fl"><a href="#">咖啡</a><a href="#">iphone 6S</a><a href="#">新鲜美食</a><a href="#">蛋糕</a><a href="#">日用品</a><a href="#">连衣裙</a></span>--%>
     </div>
     <%
         }
@@ -159,7 +159,7 @@
         <div class="car_bg">
             <!--Begin 购物车未登录 Begin-->
             <c:if test="${sessionScope.user == null}">
-                <div class="un_login">还未登录！<a href="Login.html" style="color:#ff4e00;">马上登录</a> 查看购物车！</div>
+                <div class="un_login">还未登录！<a href="<%=path%>/Login" style="color:#ff4e00;">马上登录</a> 查看购物车！</div>
             </c:if>
             <!--End 购物车未登录 End-->
             <!--Begin 购物车已登录 Begin-->
@@ -174,7 +174,7 @@
             <div class="price_a">
                 <c:choose>
                     <c:when test="${sessionScope.user == null}">
-                        <a href="#">去登录</a>
+                        <a href="<%=path%>/Login">去登录</a>
                     </c:when>
                     <c:otherwise>
                         <a href="#">去购物车结算</a>
@@ -185,7 +185,9 @@
         </div>
     </div>
 </div>
+<input type="hidden" id="path" value="<%=path%>" />
 <script src="<%=path%>/js/jquery-1.8.2.min.js"></script>
+<script src="<%=path%>/js/product/cart.js"></script>
 <script>
     $(function () {
         refreshCart();
