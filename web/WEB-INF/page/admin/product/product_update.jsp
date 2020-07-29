@@ -18,6 +18,29 @@
     <script type="text/javascript" src="<%=path%>/js/menu.js"></script>
         
 	<script type="text/javascript" src="<%=path%>/js/select.js"></script>
+
+    <script>
+        function queryProductCategoryList(obj,selectId) {
+            var parentId = $(obj).val();  //获取用户选中下拉框的id值
+            $.ajax({
+                 url : "<%=path%>/" ,
+                 method : "post",
+                 data: {
+                     action : "",
+                     id : ""
+                 },
+                  success : function (jsonStr) {
+                     var result = eval("("+jsonStr+")");
+                     if (result.status == 1){
+                         var options = "<option value=''>"+"请选择..."+"</option>";
+                         for(var i = 0 ; i<result.data.length; i++){
+
+                         }
+                     }
+                  }
+            });
+        }
+    </script>
         
     
 <title>尤洪</title>
@@ -37,7 +60,7 @@
             <div class="mem_tit">
 
 
-                添加商品
+               修改商品
 
 
 
@@ -88,7 +111,16 @@
                         <td>
                             <select name="categoryLevel2Id" style="background-color:#f6f6f6;" id="productCategoryLevel2" onchange="queryProductCategoryList(this,'productCategoryLevel3');">
                                 <option value="0" selected="selected">请选择...</option>
-
+                                <c:forEach items="${twoType}" var="twotype" >
+                                    <c:choose>
+                                        <c:when test="${twotype.id eq productbyinfo.categoryLevel2Id}">
+                                            <option value="${twotype.id}" selected="selected">${twotype.name}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${twotype.id}">${twotype.name}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
                             </select>
                         </td>
                     </tr>
@@ -97,6 +129,16 @@
                         <td>
                             <select name="categoryLevel3Id" style="background-color:#f6f6f6;" id="productCategoryLevel3">
                                 <option value="0" selected="selected">请选择...</option>
+                                <c:forEach items="${threeType}" var="threetype" >
+                                    <c:choose>
+                                        <c:when test="${threetype.id eq productbyinfo.categoryLevel3Id}">
+                                            <option value="${threetype.id}" selected="selected">${threetype.name}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${threetype.id}">${threetype.name}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
 
                             </select>
                         </td>
@@ -138,7 +180,7 @@
                         <td>
 
 
-                            <input type="submit" value="商品上架" class="s_btn">
+                            <input type="submit" value="确认修改" class="s_btn">
 
 
 
