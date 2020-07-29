@@ -53,4 +53,14 @@ public class CartTest {
         System.out.println(result);
     }
 
+    @Test
+    public void addCartData() {
+        List<CartItem> cartItems = new ArrayList<>();
+        CartItem item = new CartItem();
+        item.setPid(733);
+        cartItems.add(item);
+        if (cartItems.stream().anyMatch(c -> c.getPid().equals(733))) {
+            System.out.println(true);
+        }
+    }
 }

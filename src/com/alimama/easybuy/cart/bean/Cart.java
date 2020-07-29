@@ -41,10 +41,6 @@ public class Cart {
         }
     }
 
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
     public BigDecimal getTotalPrice() {
         if (cartItems != null) {
             AtomicReference<BigDecimal> total = new AtomicReference<>(new BigDecimal("0"));

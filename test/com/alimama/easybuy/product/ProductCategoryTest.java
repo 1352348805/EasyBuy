@@ -1,11 +1,15 @@
 package com.alimama.easybuy.product;
 
+import com.alimama.easybuy.product.bean.Product;
 import com.alimama.easybuy.product.bean.ProductCategory;
 import com.alimama.easybuy.product.dao.ProductCategoryDao;
+import com.alimama.easybuy.product.dao.ProductDao;
 import com.alimama.easybuy.product.dao.impl.ProductCategoryDaoImpl;
+import com.alimama.easybuy.product.dao.impl.ProductDaoImpl;
 import com.alimama.easybuy.product.service.ProductCategoryService;
 import com.alimama.easybuy.product.service.impl.ProductCategoryServiceImpl;
 import com.alimama.easybuy.product.to.ProductCategoryAndParentInfo;
+import com.alimama.easybuy.product.vo.ProductQueryParam;
 import com.alimama.easybuy.util.DatabaseUtil;
 import org.junit.Test;
 
@@ -43,11 +47,16 @@ public class ProductCategoryTest {
     }
 
     @Test
-    public void integer() {
-        Integer a = 128;
-        Integer b = 128;
+    public void integer() throws Exception {
+        ProductDao dao = new ProductDaoImpl(DatabaseUtil.getConnection());
+        ProductQueryParam product = new ProductQueryParam();
+        //product.setName("香");
+        product.setCategoryLevel1Id(548);
+        List<Product> products = dao.productSelectPagesize(null, 0, 5);
+        products.forEach(item ->{
+            System.out.println(item.getName());
+        });
 
-        System.out.println(a.equals(b));
 
     }
 }

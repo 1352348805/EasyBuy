@@ -22,7 +22,7 @@ public class ProductTest1 {
     public void test1()  {
         try{
             ProductService productService = new ProductServiceImpl();
-            Page<Product> page = productService.getPageProductIndex(1);
+            Page<Product> page = productService.getPageProductIndex(null,1,5);
 //            for(Product product :page.getNewsList()){
 //                System.out.println(product.getId());
 //            }

@@ -2,8 +2,10 @@ package com.alimama.easybuy.product.service;
 
 import com.alimama.easybuy.product.bean.ProductCategory;
 import com.alimama.easybuy.product.to.ProductCategoryAndParentInfo;
+import com.alimama.easybuy.product.to.ProductCategoryWithSubClass;
 import com.alimama.easybuy.util.Page;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -29,4 +31,7 @@ public interface ProductCategoryService {
 
     //获取指定分类
     List<ProductCategory> getProductCategoryListByParentId(Integer parentId);
+
+    //获取菜单数据
+    List<ProductCategoryWithSubClass> getProductCategoryMenu(HttpServletRequest request);
 }

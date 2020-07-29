@@ -72,6 +72,7 @@ public class  ProductCategoryServlet extends HttpServlet {
                 resultHTML.append("</td>");
                 resultHTML.append("</tr>");
 
+                //显示父级分类列表并绑定相应的分类
                 productCategoryAndParentInfo.getParents().forEach(parent -> {
                     //resultHTML.append("<tr  style=\"display:none\">");
                     resultHTML.append("<tr>");
@@ -179,6 +180,8 @@ public class  ProductCategoryServlet extends HttpServlet {
             }
             if (result == 1) {
                 commonResult = new CommonResult().success(null);
+                //使菜单缓存失效
+                req.getServletContext().setAttribute("menu",null);
             } else {
                 commonResult = new CommonResult().failed();
             }
@@ -201,6 +204,8 @@ public class  ProductCategoryServlet extends HttpServlet {
             Integer result = productCategoryService.deleteProductCategoryById(i);
             if (result == 1) {
                 commonResult = new CommonResult().success(null);
+                //使菜单缓存失效
+                req.getServletContext().setAttribute("menu",null);
             } else if (result == -1) {
                 commonResult = new CommonResult().validateFailed("无法删除,该分类下还有子分类");
             }

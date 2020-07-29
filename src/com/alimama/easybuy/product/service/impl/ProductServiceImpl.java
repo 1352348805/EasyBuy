@@ -4,6 +4,7 @@ import com.alimama.easybuy.product.bean.Product;
 import com.alimama.easybuy.product.dao.ProductDao;
 import com.alimama.easybuy.product.dao.impl.ProductDaoImpl;
 import com.alimama.easybuy.product.service.ProductService;
+import com.alimama.easybuy.product.vo.ProductQueryParam;
 import com.alimama.easybuy.util.DatabaseUtil;
 import com.alimama.easybuy.util.Page;
 
@@ -18,18 +19,18 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Override
-    public Page<Product> getPageProductIndex(int pageIndex){
+    public Page<Product> getPageProductIndex(ProductQueryParam queryParam, int pageIndex, int pageSize){
         Page<Product> page = new Page<>();
         List<Product> pagesizelist = new ArrayList<Product>();
         Connection con= null;
         try{
             con = DatabaseUtil.getConnection();
             ProductDao productDao = new ProductDaoImpl(con);
-            int count = productDao.productSelectTotalCount();
+            int count = productDao.productSelectTotalCount(queryParam);
             page.setTotalCount(count); // 计算总数据
             page.setCurrPageNo(pageIndex);  // 计算页码
             //  page.getStartIndex() 以那条数据开始分页
-            pagesizelist = productDao.productSelectPagesize(page.getStartIndex(),page.getPageSize());
+            pagesizelist = productDao.productSelectPagesize(queryParam,page.getStartIndex(),pageSize);
             page.setData(pagesizelist);
         }catch(Exception e) {
             e.printStackTrace();

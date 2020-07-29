@@ -1,5 +1,7 @@
 <%@ page import="com.alimama.easybuy.util.DatabaseUtil" %>
-<%@ page import="java.sql.Connection" %><%--
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.sql.Connection" %>
+<%--
   Created by IntelliJ IDEA.
   User: admin
   Date: 2020/7/20
@@ -17,6 +19,7 @@
 <%
     Connection connection = DatabaseUtil.getConnection();
     out.print(connection);
+    DatabaseUtil.close(connection);
 %>
 </body>
 </html>
