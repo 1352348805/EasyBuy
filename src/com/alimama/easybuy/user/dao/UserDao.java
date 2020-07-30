@@ -13,7 +13,7 @@ public interface UserDao{
     List<User> getUserList();
     //查找用户登入
     User findUserLogin(String name);
-
     //添加用户
     Integer insert(User user) throws SQLException;
+
 }
