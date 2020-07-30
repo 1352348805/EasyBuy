@@ -39,13 +39,14 @@ public class ProductServlet extends HttpServlet {
                if(currentPage != null){
                    try{
                        pageIndex = new Integer(currentPage);
+                       throw new Exception("something’s wrong！");
                    }catch (NumberFormatException e){
                        pageIndex = 1;
                    }
                }else{
                    pageIndex = 1;
                }
-                Page<Product> page = productService.getPageProductIndex(pageIndex);
+                Page<Product> page = productService.getPageProductIndex(null,pageIndex,5);
                 List<Product> product = page.getData();
                 req.setAttribute("products",product);
                 req.setAttribute("page",page);
@@ -67,10 +68,10 @@ public class ProductServlet extends HttpServlet {
                 List<ProductCategory> oneType = productCategoryService.getProductCategoryListByParentId(0);
                 req.setAttribute("oneType",oneType);
 
-                List<ProductCategory> twoType = productCategoryService.getProductCategoryListByParentId(product.getCategoryLevel2Id());
+                List<ProductCategory> twoType = productCategoryService.getProductCategoryListByParentId(product.getCategoryLevel1Id());
                 req.setAttribute("twoType",twoType);
 
-                List<ProductCategory> threeType = productCategoryService.getProductCategoryListByParentId(product.getCategoryLevel3Id());
+                List<ProductCategory> threeType = productCategoryService.getProductCategoryListByParentId(product.getCategoryLevel2Id());
                 req.setAttribute("threeType",threeType);
 
             }catch(Exception e){

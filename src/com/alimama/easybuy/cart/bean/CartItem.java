@@ -10,7 +10,13 @@ import java.math.BigDecimal;
 public class CartItem {
 
     //商品id
-    private Integer cid;
+    private Integer pid;
+
+    //商品名称
+    private String name;
+
+    //图片名
+    private String fileName;
 
     //商品单价
     private BigDecimal price;
@@ -20,12 +26,28 @@ public class CartItem {
 
     private BigDecimal totalPrice;
 
-    public Integer getCid() {
-        return cid;
+    public Integer getPid() {
+        return pid;
     }
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
+    public void setPid(Integer pid) {
+        this.pid = pid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public BigDecimal getPrice() {

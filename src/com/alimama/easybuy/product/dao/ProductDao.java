@@ -1,13 +1,14 @@
 package com.alimama.easybuy.product.dao;
 
 import com.alimama.easybuy.product.bean.Product;
+import com.alimama.easybuy.product.vo.ProductQueryParam;
 
 import java.util.List;
 
 public interface ProductDao {
 
      // 后台管理 - 查询所有商品列表接口 - 每页的数据条数
-     List<Product> productSelectPagesize(int pageIndex ,int pagesize) throws Exception;
+     List<Product> productSelectPagesize(ProductQueryParam queryParams , int pageIndex , int pagesize) throws Exception;
 
       /**
        *@Description  后台管理 - 以商品id查询商品
@@ -28,7 +29,7 @@ public interface ProductDao {
       List<Product> selectProductParentOneinfo(Integer categoryLeveOneId) throws Exception;
 
     // 后台管理 - 查询所有商品列表接口 - 总数据条数
-     Integer productSelectTotalCount() throws Exception;
+     Integer productSelectTotalCount(ProductQueryParam queryParam) throws Exception;
 
     // 后台管理 - 修改商品接口
      boolean productupdate(int type) throws Exception;

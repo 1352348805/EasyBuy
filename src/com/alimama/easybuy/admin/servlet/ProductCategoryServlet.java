@@ -72,6 +72,7 @@ public class  ProductCategoryServlet extends HttpServlet {
                 resultHTML.append("</td>");
                 resultHTML.append("</tr>");
 
+                //显示父级分类列表并绑定相应的分类
                 productCategoryAndParentInfo.getParents().forEach(parent -> {
                     //resultHTML.append("<tr  style=\"display:none\">");
                     resultHTML.append("<tr>");
@@ -156,20 +157,28 @@ public class  ProductCategoryServlet extends HttpServlet {
         if ("".equals(name)) {
             commonResult = new CommonResult().validateFailed("分类名称不能为空");
         } else {
-            String type = req.getParameter("type");
-            String productCategoryLevel1 = req.getParameter("productCategoryLevel1");
-            String productCategoryLevel2 = req.getParameter("productCategoryLevel2");
             ProductCategory productCategory = new ProductCategory();
-            productCategory.setName(name);
-            productCategory.setType(Integer.parseInt(type));
-            if (productCategory.getType() == 1) {
-                productCategory.setParentId(0);
-            } else if (productCategory.getType() == 2) {
-                productCategory.setParentId(Integer.parseInt(productCategoryLevel1));
-            } else {
-                productCategory.setParentId(Integer.parseInt(productCategoryLevel2));
-            }
             Integer result = 0;
+            try {
+                String type = req.getParameter("type");
+                String productCategoryLevel1 = req.getParameter("productCategoryLevel1");
+                String productCategoryLevel2 = req.getParameter("productCategoryLevel2");
+                productCategory.setName(name);
+                productCategory.setType(Integer.parseInt(type));
+                if (productCategory.getType() == 1) {
+                    productCategory.setParentId(0);
+                } else if (productCategory.getType() == 2) {
+                    productCategory.setParentId(Integer.parseInt(productCategoryLevel1));
+                } else {
+                    productCategory.setParentId(Integer.parseInt(productCategoryLevel2));
+                }
+            } catch (Exception e) {
+                commonResult = new CommonResult().validateFailed("请选择分类");
+                out.print(JSON.toJSONString(commonResult));
+                out.flush();
+                out.close();
+                return;
+            }
             if ("modifyProductCategory".equals(action)) {
                 String id = req.getParameter("id");
                 productCategory.setId(Integer.parseInt(id));
@@ -179,6 +188,8 @@ public class  ProductCategoryServlet extends HttpServlet {
             }
             if (result == 1) {
                 commonResult = new CommonResult().success(null);
+                //使菜单缓存失效
+                req.getServletContext().setAttribute("menu",null);
             } else {
                 commonResult = new CommonResult().failed();
             }
@@ -201,6 +212,8 @@ public class  ProductCategoryServlet extends HttpServlet {
             Integer result = productCategoryService.deleteProductCategoryById(i);
             if (result == 1) {
                 commonResult = new CommonResult().success(null);
+                //使菜单缓存失效
+                req.getServletContext().setAttribute("menu",null);
             } else if (result == -1) {
                 commonResult = new CommonResult().validateFailed("无法删除,该分类下还有子分类");
             }

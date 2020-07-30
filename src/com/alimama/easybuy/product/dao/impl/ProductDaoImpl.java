@@ -2,6 +2,7 @@ package com.alimama.easybuy.product.dao.impl;
 
 import com.alimama.easybuy.product.bean.Product;
 import com.alimama.easybuy.product.dao.ProductDao;
+import com.alimama.easybuy.product.vo.ProductQueryParam;
 import com.alimama.easybuy.util.BaseDao;
 
 import java.sql.Connection;
@@ -24,12 +25,36 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
         super(connection);
     }
     @Override
-    public List<Product> productSelectPagesize(int pageIndex,int pagesize) {
+    public List<Product> productSelectPagesize(ProductQueryParam queryParams, int pageIndex, int pagesize) {
         List<Product> productpagesize = new ArrayList<Product>();
-        String sql="SELECT * FROM `easybuy_product`  LIMIT ?,?";
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT * FROM `easybuy_product` WHERE 1=1 ");
+        List list = new ArrayList();
+        if (queryParams != null) {
+            if (queryParams.getName() != null && !queryParams.getName().equals("")) {
+                sb.append("AND `name` LIKE CONCAT('%',?,'%') ");
+                list.add(queryParams.getName());
+            }
+            if (queryParams.getCategoryLevel1Id() != null) {
+                sb.append("AND `categoryLevel1Id` = ? ");
+                list.add(queryParams.getCategoryLevel1Id());
+            }
+            if (queryParams.getCategoryLevel2Id() != null) {
+                sb.append("AND `categoryLevel2Id` = ? ");
+                list.add(queryParams.getCategoryLevel2Id());
+            }
+            if (queryParams.getCategoryLevel3Id() != null) {
+                sb.append("AND `categoryLevel3Id` = ? ");
+                list.add(queryParams.getCategoryLevel3Id());
+            }
+        }
+
+        sb.append("LIMIT ?,?");
+        list.add(pageIndex);
+        list.add(pagesize);
         Product product = null;
         try{
-           ResultSet rs =this.executeQuery(sql,pageIndex,pagesize);
+           ResultSet rs =this.executeQuery(sb.toString(),list.toArray());
            while(rs.next()){
                product = new Product();
                product.setId(rs.getInt("id"));
@@ -83,11 +108,31 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
     }
 
     @Override
-    public Integer productSelectTotalCount() {
+    public Integer productSelectTotalCount(ProductQueryParam queryParam) {
         int productSumsize = 0 ;
-        String sql="SELECT COUNT(1) FROM `easybuy_product` ";
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT COUNT(1) FROM `easybuy_product` WHERE 1=1 ");
+        List list = new ArrayList();
+        if (queryParam != null) {
+            if (queryParam.getName() != null && !queryParam.getName().equals("")) {
+                sb.append("AND `name` LIKE CONCAT('%',?,'%') ");
+                list.add(queryParam.getName());
+            }
+            if (queryParam.getCategoryLevel1Id() != null) {
+                sb.append("AND `categoryLevel1Id` = ? ");
+                list.add(queryParam.getCategoryLevel1Id());
+            }
+            if (queryParam.getCategoryLevel2Id() != null) {
+                sb.append("AND `categoryLevel2Id` = ? ");
+                list.add(queryParam.getCategoryLevel2Id());
+            }
+            if (queryParam.getCategoryLevel3Id() != null) {
+                sb.append("AND `categoryLevel3Id` = ? ");
+                list.add(queryParam.getCategoryLevel3Id());
+            }
+        }
         try{
-            ResultSet rs = this.executeQuery(sql);
+            ResultSet rs = this.executeQuery(sb.toString(),list.toArray());
             if (rs.next()) {
                 productSumsize = rs.getInt(1);
             }

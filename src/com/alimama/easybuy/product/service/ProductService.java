@@ -1,6 +1,7 @@
 package com.alimama.easybuy.product.service;
 
 import com.alimama.easybuy.product.bean.Product;
+import com.alimama.easybuy.product.vo.ProductQueryParam;
 import com.alimama.easybuy.util.Page;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public interface ProductService {
      *@Date 2020/7/22
      *@Time 17:17
      */
-    Page<Product> getPageProductIndex(int pageIndex) throws Exception;
+    Page<Product> getPageProductIndex(ProductQueryParam queryParam, int pageIndex, int pageSize);
 
     /**
      *@Description 以id删除商品
