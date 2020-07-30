@@ -14,4 +14,6 @@ public interface CartService{
 
     //添加到购物车
     CommonResult addToCart(HttpServletRequest request, HttpServletResponse response, Integer pid, Integer num);
+
+    String getCartJson(HttpServletRequest request,HttpServletResponse response);
 }

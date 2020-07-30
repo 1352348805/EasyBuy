@@ -47,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 
                 result = new CommonResult().validateFailed("密码错误！！！");
             }else {
-                req.getSession().setAttribute("loginName",name);
+                req.getSession().setAttribute("user",user);
                 result = new CommonResult().success(null);
             }
         } catch (SQLException throwables) {

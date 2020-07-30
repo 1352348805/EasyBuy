@@ -91,7 +91,18 @@
         </span>
         <!--End 所在收货地区 End-->
         <span class="fr">
-        	<span class="fl">你好，请<a href="Login.html">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;|&nbsp;<a href="#">我的订单</a>&nbsp;|</span>
+            <c:choose>
+                <c:when test="${sessionScope.user == null}">
+                     <span class="fl">你好，请<a href="<%=path%>/Login">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;
+                </c:when>
+                <c:otherwise>
+                    <span class="fl"><a href="<%=path%>/admin/user?action=index">${sessionScope.user.userName}</a>
+                </c:otherwise>
+            </c:choose>
+
+
+
+                |&nbsp;<a href="#">我的订单</a>&nbsp;|</span>
         	<span class="ss">
             	<div class="ss_list">
                 	<a href="#">收藏夹</a>
@@ -177,7 +188,7 @@
                         <a href="<%=path%>/Login">去登录</a>
                     </c:when>
                     <c:otherwise>
-                        <a href="#">去购物车结算</a>
+                        <a href="<%=path%>/Cart?action=toSettlement">去购物车结算</a>
                     </c:otherwise>
                 </c:choose>
             </div>

@@ -14,14 +14,11 @@ import com.alimama.easybuy.user.bean.User;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author asuk
@@ -40,21 +37,16 @@ public class CartServiceImpl implements CartService {
             if (product.getStock() < num) {
                 return new CommonResult().validateFailed("库存不足");
             }
-
+            //需要添加的购物项
+            CartItem item = fillCartItem(product,num);
             //查询cookie并封装cart
-            cart = fillCartByCookie(cart, request, product, pid, num);
+            cart = fillCartByCookie(request, product, pid, num);
 
             Object user = request.getSession().getAttribute("user");
             //未登入，购物车使用cookie存入本地
             if (user == null) {
                 if (cart == null) {
                     cart = new Cart();
-                    CartItem item = new CartItem();
-                    item.setPid(pid);
-                    item.setName(product.getName());
-                    item.setCount(num);
-                    item.setPrice(new BigDecimal(product.getPrice().toString()));
-                    item.setFileName(product.getFileName());
                     cart.setCartItems(Arrays.asList(item));
                 }
                 String cartJson = JSON.toJSONString(cart);
@@ -63,29 +55,17 @@ public class CartServiceImpl implements CartService {
                 response.addCookie(cookie);
                 return new CommonResult().success(null);
             } else {
-                //登入 将本地购物车与在线购物车合并
-                if (cart == null) {
-                    User u = (User)user;
-                    Object userCart = request.getServletContext().getAttribute("userCartKey:" + u.getLoginName());
-                    List<CartItem> cartItems;
-                    if (userCart == null) {
-                        cart = new Cart();
-                        cartItems = new ArrayList<>();
-                    } else {
-                        cart = (Cart)userCart;
-                        cartItems = cart.getCartItems();
-                    }
-                    CartItem item = new CartItem();
-                    item.setPid(pid);
-                    item.setName(product.getName());
-                    item.setCount(num);
-                    item.setPrice(new BigDecimal(product.getPrice().toString()));
-                    item.setFileName(product.getFileName());
-                    cartItems.add(item);
-                    cart.setCartItems(cartItems);
-                    request.getServletContext().setAttribute("userCartKey:" + u.getLoginName(),cart);
+                //登录合并并添加子项
+                Map<String, CartItem> cartItemMap = mergeCart(request);
+                CartItem cartItem;
+                if ((cartItem = cartItemMap.get(item.getPid().toString())) != null) {
+                    cartItem.setCount(cartItem.getCount() + num);
+                    cartItemMap.put(item.getPid().toString(),cartItem);
+                } else {
+                    cartItemMap.put(item.getPid().toString(),item);
                 }
-
+                User u = (User)user;
+                request.getServletContext().setAttribute("userCartKey:" + u.getLoginName(),cartItemMap);
                 return new CommonResult().success(null);
             }
         } catch (Exception e) {
@@ -94,9 +74,116 @@ public class CartServiceImpl implements CartService {
         }
     }
 
+    @Override
+    public String getCartJson(HttpServletRequest req,HttpServletResponse response) {
+        String cartString = "";
+        Object userObj = req.getSession().getAttribute("user");
+        if (userObj != null) {
+            //合并购物车
+            Map<String, CartItem> cartItemMap = mergeCart(req);
+            Cart cart = new Cart();
+            List<CartItem> list = new ArrayList<>();
+            for (String key:cartItemMap.keySet()) {
+                list.add(cartItemMap.get(key));
+            }
+            cart.setCartItems(list);
+            cartString = JSON.toJSONString(cart);
+            //清空离线购物车
+            Cookie cookie = new Cookie("cart", null);
+            cookie.setMaxAge(0);
+            cookie.setPath(req.getContextPath());
+            response.addCookie(cookie);
+        } else {
+            String cookieString =req.getHeader("cookie");
+            if (cookieString != null && !cookieString.equals("")) {
+                String[] cookies = new String[0];
+                try {
+                    cookies = URLDecoder.decode(cookieString,"utf-8").split(";");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+                for (String cookie : cookies) {
+                    if (cookie.indexOf("cart=") != -1) {
+                        cartString = cookie.substring(cookie.indexOf("=") + 1);
+                    }
+                }
+            }
+        }
+        return cartString;
+    }
+
+    private Map<String,CartItem> mergeCart(HttpServletRequest request) {
+        Map<String,CartItem> cartItemMap = new HashMap<>();
+        //离线购物车
+        Cart cartByCookies = getCartByCookies(request.getCookies());
+        //在线购物车
+        User user = (User) request.getSession().getAttribute("user");
+        Object cartByServer = request.getServletContext().getAttribute("userCartKey:" + user.getLoginName());
+        if (cartByCookies != null) {
+            if (cartByServer != null) {
+                Map<String,CartItem> map = (HashMap<String,CartItem>)cartByServer;
+                cartByCookies.getCartItems().forEach(i -> {
+                    CartItem cartItem;
+                    if ((cartItem = map.get(i.getPid().toString())) != null) {
+                        cartItem.setCount(cartItem.getCount()+i.getCount());
+                        map.put(i.getPid().toString(),cartItem);
+                    } else {
+                        map.put(i.toString(),i);
+                    }
+                });
+                cartItemMap = map;
+            } else {
+                Map<String,CartItem> map = new HashMap<>();
+                cartByCookies.getCartItems().forEach(i -> {
+                    map.put(i.getPid().toString(),i);
+                });
+                cartItemMap = map;
+            }
+        } else {
+            if (cartByServer != null) {
+                cartItemMap = (HashMap<String,CartItem>)cartByServer;
+            }
+        }
+        //合并进在线购物车
+        request.getServletContext().setAttribute("userCartKey:" + user.getLoginName(),cartItemMap);
+        return cartItemMap;
+    }
+
+
+    private CartItem fillCartItem (Product product,Integer num) {
+        CartItem item = new CartItem();
+        item.setPid(product.getId());
+        item.setName(product.getName());
+        item.setCount(num);
+        item.setPrice(new BigDecimal(product.getPrice().toString()));
+        item.setFileName(product.getFileName());
+        return item;
+    }
+
+    /**
+     * 获取离线购物车
+     * @param cookies
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+    private Cart getCartByCookies(Cookie[] cookies) {
+        Cart cart = null;
+        if (cookies != null && cookies.length > 0) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("cart")) {
+                    try {
+                        cart = JSONObject.parseObject(URLDecoder.decode(cookie.getValue(),"utf-8"),Cart.class);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return cart;
+    }
+
     /**
      * 去cookie里查询并封装cart对象
-     * @param cart
      * @param request
      * @param product
      * @param pid
@@ -104,33 +191,27 @@ public class CartServiceImpl implements CartService {
      * @return
      * @throws UnsupportedEncodingException
      */
-    private Cart fillCartByCookie (Cart cart,HttpServletRequest request,Product product,Integer pid,Integer num) throws UnsupportedEncodingException {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length > 0) {
-            for (Cookie cookie:cookies) {
-                if (cookie.getName().equals("cart")) {
-                    //加入购物项
-                    //获取老购物车
-                    cart = JSONObject.parseObject(URLDecoder.decode(cookie.getValue(),"utf-8"),Cart.class);
-                    List<CartItem> cartItems = cart.getCartItems();
-                    //判断要添加的商品是否在集合中，Y:直接添加数量 N:追加一项
-                    if (cartItems.stream().anyMatch(c -> c.getPid().equals(pid))) {
-                        cartItems.stream().forEach(items -> {
-                            if (items.getPid().equals(pid)) {
-                                items.setCount(items.getCount() + num);
-                            }
-                        });
-                    } else {
-                        CartItem item = new CartItem();
-                        item.setPid(pid);
-                        item.setName(product.getName());
-                        item.setPrice(new BigDecimal(product.getPrice().toString()));
-                        item.setCount(num);
-                        item.setFileName(product.getFileName());
-                        cartItems.add(item);
-                        cart.setCartItems(cartItems);
+    private Cart fillCartByCookie (HttpServletRequest request,Product product,Integer pid,Integer num) throws UnsupportedEncodingException {
+
+        Cart cart = getCartByCookies(request.getCookies());
+        if (cart != null) {
+            List<CartItem> cartItems = cart.getCartItems();
+            //判断要添加的商品是否在集合中，Y:直接添加数量 N:追加
+            if (cartItems.stream().anyMatch(c -> c.getPid().equals(pid))) {
+                cartItems.stream().forEach(items -> {
+                    if (items.getPid().equals(pid)) {
+                        items.setCount(items.getCount() + num);
                     }
-                }
+                });
+            } else {
+                CartItem item = new CartItem();
+                item.setPid(pid);
+                item.setName(product.getName());
+                item.setPrice(new BigDecimal(product.getPrice().toString()));
+                item.setCount(num);
+                item.setFileName(product.getFileName());
+                cartItems.add(item);
+                cart.setCartItems(cartItems);
             }
         }
         return cart;

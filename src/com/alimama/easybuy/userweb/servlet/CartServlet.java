@@ -1,14 +1,17 @@
-package com.alimama.easybuy.cart.servlet;
+package com.alimama.easybuy.userweb.servlet;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alimama.easybuy.cart.bean.Cart;
+import com.alimama.easybuy.cart.bean.CartItem;
 import com.alimama.easybuy.cart.service.CartService;
 import com.alimama.easybuy.cart.service.impl.CartServiceImpl;
+import com.alimama.easybuy.product.service.ProductCategoryService;
+import com.alimama.easybuy.product.service.impl.ProductCategoryServiceImpl;
+import com.alimama.easybuy.product.to.ProductCategoryWithSubClass;
 import com.alimama.easybuy.to.CommonResult;
+import com.alimama.easybuy.user.bean.User;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,44 +19,49 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author asuk
- * @date 2020/7/16 15:46
+ * @date 2020/7/30 19:08
  */
 
 @WebServlet("/Cart")
 public class CartServlet extends HttpServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        if (action.equals("addToCart")) {
+        CartService cartService = new CartServiceImpl();
+        if (action.equals("addToCart"))
+        {
             String pid = req.getParameter("pid");
             String num = req.getParameter("num");
-            CartService cartService = new CartServiceImpl();
             CommonResult commonResult = cartService.addToCart(req,resp,Integer.parseInt(pid), Integer.parseInt(num));
             String resultJsonString = JSON.toJSONString(commonResult);
             PrintWriter out = resp.getWriter();
             out.print(resultJsonString);
             out.flush();
             out.close();
-        } else if (action.equals("refreshCart")) {
-            String cartString = "";
-            String cookieString =req.getHeader("cookie");
-            if (cookieString != null && !cookieString.equals("")) {
-                String[] cookies = URLDecoder.decode(cookieString,"utf-8").split(";");
-                for (String cookie : cookies) {
-                    if (cookie.indexOf("cart=") != -1) {
-                        cartString = cookie.substring(cookie.indexOf("=") + 1);
-                    }
-                }
-            }
+        }
+        else if (action.equals("toSettlement"))
+        {
+            ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
+
+            List<ProductCategoryWithSubClass> menu = productCategoryService.getProductCategoryMenu(req);
+            req.setAttribute("menu", menu);
+            req.getRequestDispatcher("/WEB-INF/page/userweb/cart/BuyCar.jsp").forward(req,resp);
+        }
+        else if (action.equals("refreshCart"))
+        {
+            String cartJson = cartService.getCartJson(req,resp);
             PrintWriter out = resp.getWriter();
-            out.print(cartString);
+            out.print(cartJson);
             out.flush();
             out.close();
         }
     }
+
 }

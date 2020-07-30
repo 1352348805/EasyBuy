@@ -173,7 +173,7 @@
                             <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
                         </c:if>
                     </c:forEach>
-                    <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo}" class="cur">${page.currPageNo}</a>
+                    <a href="<%=path%>/1admin/productCategory?action=index&index=${page.currPageNo}" class="cur">${page.currPageNo}</a>
 
                     <c:forEach var="i" begin="${page.currPageNo+1}" end="${page.currPageNo+3}">
                         <c:if test="${i <= page.totalPageCount}">
