@@ -21,24 +21,86 @@
 
     <script>
         function queryProductCategoryList(obj,selectId) {
-            var parentId = $(obj).val();  //获取用户选中下拉框的id值
+            var parentid = $(obj).val();  //获取用户选中下拉框的id值
             $.ajax({
-                 url : "<%=path%>/" ,
-                 method : "post",
+                 url : "<%=path%>/admin/product" ,
+                 type : "get",
                  data: {
-                     action : "",
-                     id : ""
+                     action : "queryProductCategoryList",
+                     parentId : parentid
                  },
-                  success : function (jsonStr) {
-                     var result = eval("("+jsonStr+")");
-                     if (result.status == 1){
-                         var options = "<option value=''>"+"请选择..."+"</option>";
+                 dataType : "json",
+                 success : function (jsonStr) {
+                     var result = eval(jsonStr);
+                     if(result.code==200){
+                         var options = "<option value='0'>"+"请选择..."+"</option>";
                          for(var i = 0 ; i<result.data.length; i++){
-
+                             var option = "<option value="+result.data[i].id+">"+result.data[i].name+"</option>";
+                             options=options+option;
                          }
+                         $("#"+selectId).html(options);
                      }
+
                   }
             });
+        }
+
+        $("#bt").click(function ()  {
+
+
+        });
+        function checkProduct() {
+            var productCategoryLevelone = $("#productCategoryLevel1").val();
+            var productCategoryLeveltwo = $("#productCategoryLevel2").val();
+            var productCategoryLevelthree = $("#productCategoryLevel3").val();
+            var name = $("#name").val();
+            var filename = $("#fileid").val();
+            var price = $("#price").val();
+            var stock = $("#stock").val();
+            var description = $("#descriptionid").val();
+            prices = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;  // 判断价格是整数或小数形式
+            numer = /^[1-9]\d{0,5}$/; // 判断6位整正数
+            if(productCategoryLevelone == 0){
+                alert("请选择商品一级分类");
+                return ;
+            }
+            if(productCategoryLeveltwo == 0){
+                alert("请选择商品二级分类");
+                return ;
+            }
+            if(productCategoryLevelthree == 0){
+                alert("请选择商品三级分类");
+                return ;
+            }
+            if(name == null || name == ""){
+                alert("商品名称不能为空");
+                return ;
+            }
+            if(name.length < 2 || name.length >9){
+                alert("商品名称为2到9个字符");
+                return ;
+            }
+            if(filename == null || filename == ""){
+                alert("商品图片不能为空");
+                return ;
+            }
+            if(price == null || price == ""){
+                alert("商品单价不能为空");
+                return ;
+            }
+            if(prices.test(price) == false){
+                alert("请输入合法的价格");
+                return ;
+            }
+            if(stock == null || stock == ""){
+                alert("商品库存不能为空");
+                return ;
+            }
+            if(numer.test(stock) == false){
+                alert("请输入合法的商品库存量");
+                return ;
+            }
+
         }
     </script>
         
@@ -67,13 +129,13 @@
             </div>
 
             <br>
-            <form action="/EasyBuy_war/admin/product?action=addProduct" method="post" enctype="multipart/form-data" id="productAdd" onsubmit="return checkProduct();">
+            <form action="<%=path%>/admin/product?action=UpdateProduct&amp;productid=${productbyinfo.id}" method="post" enctype="multipart/form-data" id="productUpdate">
                 <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
                     <tbody><tr>
                         <td width="135" align="right">一级分类</td>
                         <td colspan="3" style="font-family:'宋体';">
                         <select name="categoryLevel1Id" style="background-color:#f6f6f6;" id="productCategoryLevel1" onchange="queryProductCategoryList(this,'productCategoryLevel2');">
-                               <option value="" selected="selected">请选择...</option>
+                               <option value="0" selected="selected">请选择...</option>
                             <c:forEach items="${oneType}" var="onetype" >
                                 <c:choose>
                                     <c:when test="${onetype.id eq productbyinfo.categoryLevel1Id}">
@@ -146,47 +208,44 @@
                     <tr>
                         <td width="135" align="right">商品名称</td>
                         <td>
-                            <input type="text" value="" class="add_ipt" name="name" id="name">（必填）
+                            <input type="text" value="${productbyinfo.name}" class="add_ipt" name="name" id="name">（必填）
                             <input type="hidden" name="id" value="" id="id">
                         </td>
                     </tr>
                     <tr>
                         <td width="135" align="right">商品图片</td>
                         <td>
-
-                            <input type="file" class="text" name="photo"><span></span>
+                            <input type="file" class="text" name="photo" id="fileid"><span></span>
                         </td>
                     </tr>
                     <tr>
                         <td width="135" align="right">单价</td>
                         <td>
-                            <input type="text" value="" class="add_ipt" name="price" id="price">
+                            <input type="text" value="${productbyinfo.price}" class="add_ipt" name="price" id="price">
                         </td>
                     </tr>
                     <tr>
                         <td width="135" align="right">库存</td>
                         <td>
-                            <input type="text" value="" class="add_ipt" name="stock" id="stock">
+                            <input type="text" value="${productbyinfo.stock}" class="add_ipt" name="stock" id="stock">
                         </td>
                     </tr>
                     <tr>
                         <td width="135" align="right">描述</td>
                         <td>
-                            <textarea name="description"></textarea>
+                            <textarea name="description" id="descriptionid" value="${productbyinfo.description}"></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
 
-
-                            <input type="submit" value="确认修改" class="s_btn">
-
-
+                            <input type="button" value="确认修改" class="s_btn" id="bt">
 
                         </td>
                     </tr>
-                    </tbody></table>
+                    </tbody>
+                </table>
             </form>
         </div>
     </div>

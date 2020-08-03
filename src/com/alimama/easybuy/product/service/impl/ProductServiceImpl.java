@@ -19,6 +19,11 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+    @Override
     public Page<Product> getPageProductIndex(ProductQueryParam queryParam, int pageIndex, int pageSize){
         Page<Product> page = new Page<>();
         List<Product> pagesizelist = new ArrayList<Product>();
@@ -90,4 +95,25 @@ public class ProductServiceImpl implements ProductService {
         }
         return ProductParentOneinfoList;
     }
+
+    @Override
+    public boolean productupdate(Product product) throws Exception {
+        Connection con = null ;
+        try{
+            con = DatabaseUtil.getConnection();
+            ProductDao productDao = new ProductDaoImpl(con);
+            boolean bool =  productDao.productupdate(product);
+            if(bool){
+                return true;
+            }
+            return  false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return  false;
+        }finally{
+            DatabaseUtil.close(con);
+        }
+
+    }
 }
+

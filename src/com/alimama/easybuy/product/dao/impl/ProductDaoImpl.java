@@ -5,13 +5,13 @@ import com.alimama.easybuy.product.dao.ProductDao;
 import com.alimama.easybuy.product.vo.ProductQueryParam;
 import com.alimama.easybuy.util.BaseDao;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
+import java.util.function.Consumer;
 
 /**
  * @author Jun Xiao
@@ -143,21 +143,30 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
     }
 
     @Override
-    public boolean productupdate(int type) {
+    public boolean productupdate(Product product) {
+        String sql = "UPDATE  `easybuy_product` SET `name`= ? ,`description` = ?,`price`=?,`stock`= ?,`categoryLevel1Id`= ?,`categoryLevel2Id`= ?,`categoryLevel3Id`= ?,`fileName`= ?  WHERE id = ? ";
         try{
-            if(type ==1){
-               String sql ="SELECT * FROM `easybuy_product_category` WHERE type = 1";
+            Object[] object={
+                    product.getName(),
+                    product.getDescription(),
+                    product.getPrice(),
+                    product.getStock(),
+                    product.getCategoryLevel1Id(),
+                    product.getCategoryLevel2Id(),
+                    product.getCategoryLevel3Id(),
+                    product.getFileName(),
+                    product.getId()
+            };
+            int row = this.executeUpdate(sql,object);
+            if(row > 0){
+                return  true;
             }
-            if(type == 2){
-                String sql ="SELECT * FROM `easybuy_product_category` WHERE type = 2";
-            }
-            if(type == 3){
-                String sql ="SELECT * FROM `easybuy_product_category` WHERE type = 3";
-            }
+            return false;
         }catch(Exception e){
             e.printStackTrace();
+            return false;
         }
-        return false;
+
     }
 
     @Override
