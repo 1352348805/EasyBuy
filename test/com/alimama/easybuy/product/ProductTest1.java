@@ -9,6 +9,7 @@ import com.alimama.easybuy.util.DatabaseUtil;
 import com.alimama.easybuy.util.Page;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -87,4 +88,19 @@ public class ProductTest1 {
         System.out.println(hashtable.get(null));
 
     }
+    @Test
+    public void test5(){
+
+        System.out.println(new BigDecimal("32.34"));
+        System.out.println(UUID.randomUUID().toString().replace("-",""));
+
+    }
+
+    @Test
+    public void test6(){
+
+
+
+    }
 }
+

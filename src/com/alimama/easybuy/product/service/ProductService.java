@@ -48,4 +48,13 @@ public interface ProductService {
      */
     List<Product> getProductParentOneinfo(Integer categoryLeveOneId) throws Exception;
 
+    /**
+     *@Description // 后台管理 - 修改商品接口
+     *@Param
+     *@Author Wang.li.ming
+     *@Date 2020/7/30
+     *@Time 12:24
+     */
+    boolean productupdate(Product product) throws Exception;
+
 }

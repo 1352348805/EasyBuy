@@ -13,6 +13,21 @@ public class Product {
     private String fileName;
     private Integer isDelete;
 
+    public Product(){
+    }
+
+    public Product(Integer id,String name,String description,Float price,Integer stock,Integer categoryLevel1Id,Integer categoryLevel2Id,Integer categoryLevel3Id,String fileName){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+        this.categoryLevel1Id = categoryLevel1Id;
+        this.categoryLevel2Id = categoryLevel2Id;
+        this.categoryLevel3Id = categoryLevel3Id;
+        this.fileName = fileName;
+    }
+
     public Integer getId() {
         return id;
     }

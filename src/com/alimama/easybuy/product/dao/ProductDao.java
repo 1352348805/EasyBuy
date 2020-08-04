@@ -32,7 +32,7 @@ public interface ProductDao {
      Integer productSelectTotalCount(ProductQueryParam queryParam) throws Exception;
 
     // 后台管理 - 修改商品接口
-     boolean productupdate(int type) throws Exception;
+     boolean productupdate(Product product) throws Exception;
 
     // 后台管理 - 添加商品接口
      boolean productadd() throws Exception;

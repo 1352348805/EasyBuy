@@ -1,6 +1,7 @@
 package com.alimama.easybuy.admin.servlet;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.support.odps.udf.JSONTuple;
 import com.alimama.easybuy.product.bean.Product;
 import com.alimama.easybuy.product.bean.ProductCategory;
 import com.alimama.easybuy.product.service.ProductCategoryService;
@@ -9,15 +10,20 @@ import com.alimama.easybuy.product.service.impl.ProductCategoryServiceImpl;
 import com.alimama.easybuy.product.service.impl.ProductServiceImpl;
 import com.alimama.easybuy.to.CommonResult;
 import com.alimama.easybuy.util.Page;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author asuk
@@ -78,9 +84,19 @@ public class ProductServlet extends HttpServlet {
             }
             req.getRequestDispatcher("/WEB-INF/page/admin/product/product_update.jsp").forward(req,resp);
         }
-        // 添加入口
-        else if ("add".equals(action)) {
-            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_add.jsp").forward(req,resp);
+        // 异步刷新产品分类数据
+        else if("queryProductCategoryList".equals(action)){
+            ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
+            try{
+                Integer ProductParentId = Integer.parseInt(req.getParameter("parentId"));
+                List<ProductCategory> productCategoryList = productCategoryService.getProductCategoryListByParentId(ProductParentId);
+                PrintWriter writer = resp.getWriter();
+                writer.print(JSON.toJSONString(new CommonResult().success(productCategoryList))); // 给用户端返回一个状态码 ，并把数据封装进去
+                writer.flush();
+                writer.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
 
     }
@@ -90,6 +106,7 @@ public class ProductServlet extends HttpServlet {
         CommonResult commonResult = new CommonResult();
         try{
             ProductService productService = new ProductServiceImpl();
+         // ProductService productService = (ProductServiceImpl)Class.forName("com.alimama.easybuy.product.service.impl.ProductServiceImpl").newInstance(); //类反射
             int productid = Integer.parseInt(req.getParameter("productid"));
             boolean bool = productService.productInfoByIdDelete(productid);
             if(bool){
@@ -116,6 +133,91 @@ public class ProductServlet extends HttpServlet {
      */
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //创建工厂
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        //创建解析器对象
+        ServletFileUpload sfu=new ServletFileUpload(factory);
+        sfu.setFileSizeMax(2000*1024);
+        ProductService productService = new ProductServiceImpl();
+        CommonResult commonResult = new CommonResult();
+        Product product = new Product();
+        Integer productid = Integer.parseInt(req.getParameter("productid"));
+        product.setId(productid);
+        try {
+            //解析request对象，得到用户请求对象中的所以数据，返回一个List<FileItem>
+            List<FileItem> list=sfu.parseRequest(req);
+            for(FileItem item:list) {
+                if (item.isFormField()) {
+                    // getFieldName() K 表单属性的名字   getString() V 表单属性的值
+                    if (item.getFieldName().equals("categoryLevel1Id")) {
+                        product.setCategoryLevel1Id(Integer.parseInt(item.getString("UTF-8")));
+                    }
+                    if(item.getFieldName().equals("categoryLevel2Id")){
+                       product.setCategoryLevel2Id(Integer.parseInt(item.getString("UTF-8")));
+                    }
+                    if(item.getFieldName().equals("categoryLevel3Id")){
+                       product.setCategoryLevel3Id(Integer.parseInt(item.getString("UTF-8")));
+                    }
+                    if(item.getFieldName().equals("name")){
+                        product.setName(item.getString("UTF-8"));
+                    }
+                    if(item.getFieldName().equals("price")){
+                        product.setPrice(Float.parseFloat(item.getString("UTF-8")));
+                    }
+                    if(item.getFieldName().equals("stock")){
+                        product.setStock(Integer.parseInt(item.getString("UTF-8")));
+                    }
+                    if(item.getFieldName().equals("description")){
+                        product.setDescription(item.getString("UTF-8"));
+                    }
+
+                } else {
+                    String hzm =null;
+                    try{
+                        // item.getName() 获取文件名（包括文件格式）indexOf() 包含当前下标
+                        hzm = item.getName().substring(item.getName().indexOf(".")); // 截取文件的后缀名（格式）
+                        if(!hzm.equals(".jpg") && !hzm.equals(".png")){
+                            throw new Exception("文件名格式不对！");
+                        }
+                    }catch (Exception e){
+                        throw new Exception("你还没选择要上传的文件！");
+                    }
+
+                    // 替换文件名称后的文件名称（得到一个新的文件名）
+                    String fileName = UUID.randomUUID().toString().replace("-","")+hzm;
+                    // filePath 文件要存储的相对路径
+                    String filePath = req.getServletContext().getRealPath("/")+"images/"+ fileName;
+                    File file = new File(filePath);
+//                    if(!file.exists() && !file.isDirectory()){
+//                         file.mkdirs(); //不存在该目录则创建该目录
+//                    }
+                    try {
+                        // 把文件流写到 filePath 路径里去
+                        item.write(file);
+                        product.setFileName(fileName);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            Boolean bool = productService.productupdate(product);
+            if(bool){
+                commonResult.setMessage("修改成功");
+               // req.getRequestDispatcher("/admin/product?action=index").forward(req,resp);
+            }
+            else{
+                commonResult.setMessage("修改失败");
+               // req.getRequestDispatcher("/admin/product?action=index").forward(req,resp);
+            }
+            PrintWriter writer = resp.getWriter();
+            writer.print(JSON.toJSONString(commonResult));
+            writer.flush();
+            writer.close();
+        } catch (FileUploadException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -128,6 +230,12 @@ public class ProductServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("action");
+        if("UpdateProduct".equals(action)) {
+            doPut(req,resp);
+        }else {
+            req.getRequestDispatcher("/WEB-INF/page/admin/product/product_add.jsp").forward(req,resp);
+        }
 
     }
 }
