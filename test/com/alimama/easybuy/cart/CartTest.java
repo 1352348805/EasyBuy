@@ -10,6 +10,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradeAppPayRequest;
 import com.alipay.api.response.AlipayTradeAppPayResponse;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.ReadWriteLock;
 
 /**
  * @author Jun Xiao
@@ -62,5 +64,11 @@ public class CartTest {
         if (cartItems.stream().anyMatch(c -> c.getPid().equals(733))) {
             System.out.println(true);
         }
+    }
+
+    @Test
+    public void f4() throws CloneNotSupportedException {
+
+
     }
 }

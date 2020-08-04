@@ -10,10 +10,12 @@ import com.alimama.easybuy.product.service.ProductService;
 import com.alimama.easybuy.product.service.impl.ProductServiceImpl;
 import com.alimama.easybuy.to.CommonResult;
 import com.alimama.easybuy.user.bean.User;
+import com.alimama.easybuy.util.CookieUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
@@ -50,9 +52,7 @@ public class CartServiceImpl implements CartService {
                     cart.setCartItems(Arrays.asList(item));
                 }
                 String cartJson = JSON.toJSONString(cart);
-                Cookie cookie = new Cookie("cart", URLEncoder.encode(cartJson, "utf-8"));
-                cookie.setMaxAge(60*60*24*7);
-                response.addCookie(cookie);
+                CookieUtil.addCookie(response,"cart",URLEncoder.encode(cartJson, "utf-8"), 60*60*24*7);
                 return new CommonResult().success(null);
             } else {
                 //登录合并并添加子项
@@ -79,7 +79,7 @@ public class CartServiceImpl implements CartService {
         String cartString = "";
         Object userObj = req.getSession().getAttribute("user");
         if (userObj != null) {
-            //合并购物车
+            //合并购物车 使用在线购物车
             Map<String, CartItem> cartItemMap = mergeCart(req);
             Cart cart = new Cart();
             List<CartItem> list = new ArrayList<>();
@@ -88,30 +88,41 @@ public class CartServiceImpl implements CartService {
             }
             cart.setCartItems(list);
             cartString = JSON.toJSONString(cart);
-            //清空离线购物车
+            //清空离线购物车 使cookie失效
             Cookie cookie = new Cookie("cart", null);
             cookie.setMaxAge(0);
             cookie.setPath(req.getContextPath());
             response.addCookie(cookie);
         } else {
-            String cookieString =req.getHeader("cookie");
-            if (cookieString != null && !cookieString.equals("")) {
-                String[] cookies = new String[0];
-                try {
-                    cookies = URLDecoder.decode(cookieString,"utf-8").split(";");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                for (String cookie : cookies) {
-                    if (cookie.indexOf("cart=") != -1) {
-                        cartString = cookie.substring(cookie.indexOf("=") + 1);
-                    }
-                }
-            }
+            Cart cartByCookies = getCartByCookies(req.getCookies());
+            cartString = JSON.toJSONString(cartByCookies);
         }
         return cartString;
     }
 
+    @Override
+    public Cart getServerCart(HttpServletRequest req) {
+        Cart cart = new Cart();
+
+        User user = (User)req.getSession().getAttribute("user");
+        try {
+            HashMap<String,CartItem> cartItemHashMap = (HashMap<String,CartItem>)req.getServletContext().getAttribute("userCartKey:" + user.getLoginName());
+            List<CartItem> cartItems = new ArrayList<>();
+            cartItemHashMap.keySet().forEach(item -> {
+                cartItems.add(cartItemHashMap.get(item));
+            });
+            cart.setCartItems(cartItems);
+        } catch (NullPointerException exception) {
+            return null;
+        }
+        return cart;
+    }
+
+    /**
+     * 合并购物车
+     * @param request
+     * @return
+     */
     private Map<String,CartItem> mergeCart(HttpServletRequest request) {
         Map<String,CartItem> cartItemMap = new HashMap<>();
         //离线购物车
@@ -216,6 +227,9 @@ public class CartServiceImpl implements CartService {
         }
         return cart;
     }
+
+
+
 
 
 

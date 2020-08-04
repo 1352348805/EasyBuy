@@ -42,91 +42,46 @@
     <!--Begin 第一步：查看购物车 Begin -->
     <div class="content mar_20">
     	<table border="0" class="car_tab" style="width:1200px; margin-bottom:50px;" cellspacing="0" cellpadding="0">
-          <tr>
-            <td class="car_th" width="490">商品名称</td>
-            <td class="car_th" width="140">属性</td>
-            <td class="car_th" width="150">购买数量</td>
-            <td class="car_th" width="130">小计</td>
-            <td class="car_th" width="140">返还积分</td>
-            <td class="car_th" width="150">操作</td>
-          </tr>
-          <tr>
-            <td>
-            	<div class="c_s_img"><img src="images/c_1.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-            </td>
-            <td align="center">颜色：灰色</td>
-            <td align="center">
-            	<div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                	<input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
-                </div>
-            </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
-            <td align="center">26R</td>
-            <td align="center"><a onclick="ShowDiv('MyDiv','fade')">删除</a>&nbsp; &nbsp;<a href="#">加入收藏</a></td>
-          </tr>
-          <tr class="car_tr">
-            <td>
-            	<div class="c_s_img"><img src="images/c_2.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-            </td>
-            <td align="center">颜色：灰色</td>
-            <td align="center">
-            	<div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                	<input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
-                </div>
-            </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
-            <td align="center">26R</td>
-            <td align="center"><a href="#">删除</a>&nbsp; &nbsp;<a href="#">加入收藏</a></td>
-          </tr>
-          <tr>
-            <td>
-            	<div class="c_s_img"><img src="images/c_3.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-            </td>
-            <td align="center">颜色：灰色</td>
-            <td align="center">
-            	<div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                	<input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
-                </div>
-            </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
-            <td align="center">26R</td>
-            <td align="center"><a href="#">删除</a>&nbsp; &nbsp;<a href="#">加入收藏</a></td>
-          </tr>
-          <tr class="car_tr">
-            <td>
-            	<div class="c_s_img"><img src="images/c_4.jpg" width="73" height="73" /></div>
-                Rio 锐澳 水蜜桃味白兰地鸡尾酒（预调酒） 275ml
-            </td>
-            <td align="center">颜色：灰色</td>
-            <td align="center">
-            	<div class="c_num">
-                    <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
-                	<input type="text" value="1" name="" class="car_ipt" />  
-                    <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
-                </div>
-            </td>
-            <td align="center" style="color:#ff4e00;">￥620.00</td>
-            <td align="center">26R</td>
-            <td align="center"><a href="#">删除</a>&nbsp; &nbsp;<a href="#">加入收藏</a></td>
-          </tr>
+            <tr>
+                <td class="car_th" width="200">商品名称</td>
+                <td class="car_th" width="150">单价</td>
+                <td class="car_th" width="150">购买数量</td>
+                <td class="car_th" width="130">小计</td>
+                <td class="car_th" width="150">操作</td>
+            </tr>
+
+           <c:forEach var="cartItem" items="${cart.cartItems}">
+               <tr>
+                   <td>
+                       <div class="c_s_img">
+                           <a href="/EasyBuy_war/Product?action=queryProductDeatil&amp;id=734"><img src="<%=path%>/images/${cartItem.fileName}" width="73" height="73"></a>
+                       </div>
+                       ${cartItem.name}
+                   </td>
+                   <td align="center" style="color:#ff4e00;">￥${cartItem.price}</td>
+                   <td align="center">
+                       <div class="c_num">
+                           <input type="button" value="" onclick="jianUpdate1(jq(this));" class="car_btn_1" />
+                           <input type="text" value="${cartItem.count}" name="" class="car_ipt" />
+                           <input type="hidden" value="${cartItem.pid}" class="car_pid" />
+                           <input type="button" value="" onclick="addUpdate1(jq(this));" class="car_btn_2" />
+                       </div>
+                   </td>
+                   <td align="center" class="car_total_price" style="color:#ff4e00;">￥${cartItem.totalPrice}</td>
+                   <td align="center"><a onclick="ShowDiv('MyDiv','fade')">删除</a>&nbsp; &nbsp;</td>
+               </tr>
+           </c:forEach>
+
+
           <tr height="70">
           	<td colspan="6" style="font-family:'Microsoft YaHei'; border-bottom:0;">
             	<label class="r_rad"><input type="checkbox" name="clear" checked="checked" /></label><label class="r_txt">清空购物车</label>
-                <span class="fr">商品总价：<b style="font-size:22px; color:#ff4e00;">￥2899</b></span>
+                <span class="fr">商品总价：<b style="font-size:22px; color:#ff4e00;" id="totalPrice">￥${cart.totalPrice}</b></span>
             </td>
           </tr>
           <tr valign="top" height="150">
           	<td colspan="6" align="right">
-            	<a href="#"><img src="images/buy1.gif" /></a>&nbsp; &nbsp; <a href="#"><img src="images/buy2.gif" /></a>
+            	<a href="#"><img src="<%=path%>/images/buy1.gif" /></a>&nbsp; &nbsp; <a href="<%=path%>/Cart?action=toSettlement2"><img src="images/buy2.gif" /></a>
             </td>
           </tr>
         </table>

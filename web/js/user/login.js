@@ -20,10 +20,11 @@ function login(){
         success: function (jsonStr) {
             var result = eval("(" + jsonStr + ")");
             if (result.code == 200) {
-                showMessage(result.message);
-                setTimeout(function () {
-                    window.location.href = path + "/Home?action=index";
-                },2000);
+                window.location.href = path + "/Home?action=index";
+                // showMessage(result.message);
+                // setTimeout(function () {
+                //     window.location.href = path + "/Home?action=index";
+                // },2000);
             } else {
                 showMessage(result.message);
             }

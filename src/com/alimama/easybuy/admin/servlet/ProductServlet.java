@@ -39,7 +39,6 @@ public class ProductServlet extends HttpServlet {
                if(currentPage != null){
                    try{
                        pageIndex = new Integer(currentPage);
-                       throw new Exception("something’s wrong！");
                    }catch (NumberFormatException e){
                        pageIndex = 1;
                    }

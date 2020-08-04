@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @date 2020/7/16 17:34
  * 整个购物车
  */
-public class Cart {
+public class Cart implements Cloneable{
 
     //购物车项的集合
     private List<CartItem> cartItems;
@@ -56,4 +56,5 @@ public class Cart {
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
+
 }
