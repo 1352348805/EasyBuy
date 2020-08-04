@@ -10,19 +10,19 @@
     <!--[if IE 6]>
     <script src="<%=path%>/js/iepng.js" type="text/javascript"></script>
         <script type="text/javascript">
-           EvPNG.fix('div, ul, img, li, input, a'); 
+           EvPNG.fix('div, ul, img, li, input, a');
         </script>
-    <![endif]-->    
+    <![endif]-->
     <script type="text/javascript" src="<%=path%>/js/jquery-1.11.1.min_044d0927.js"></script>
 	<script type="text/javascript" src="<%=path%>/js/jquery.bxslider_e88acd1b.js"></script>
-    
+
     <script type="text/javascript" src="<%=path%>/js/jquery-1.8.2.min.js"></script>
     <script type="text/javascript" src="<%=path%>/js/menu.js"></script>
-        
+
 	<script type="text/javascript" src="<%=path%>/js/select.js"></script>
-    
+
 	<script type="text/javascript" src="<%=path%>/js/lrscroll.js"></script>
-    
+
     <script type="text/javascript" src="<%=path%>/js/iban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/fban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/f_ban.js"></script>
@@ -30,13 +30,13 @@
     <script type="text/javascript" src="<%=path%>/js/bban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/hban.js"></script>
     <script type="text/javascript" src="<%=path%>/js/tban.js"></script>
-    
+
 	<script type="text/javascript" src="<%=path%>/js/lrscroll_1.js"></script>
     
     
 <title>易买网</title>
 </head>
-<body>  
+<body>
 <!--Begin Header Begin-->
 <jsp:include page="../common/top_nav.jsp" />
 <!--End Header End-->

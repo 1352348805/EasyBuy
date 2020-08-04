@@ -20,7 +20,7 @@ import java.util.List;
  * @author asuk
  * @date 2020/7/20 18:38
  */
-@WebServlet({"/Home","/"})
+@WebServlet("/Home")
 public class HomeServlet extends HttpServlet {
 
     Logger logger = Logger.getLogger(HomeServlet.class);

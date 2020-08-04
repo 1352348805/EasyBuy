@@ -131,7 +131,5 @@
 <script>
     $(function () {
         $("#login-btn").click(login);
-
-
     });
 </script>
