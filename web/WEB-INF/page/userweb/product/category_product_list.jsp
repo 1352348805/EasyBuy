@@ -168,19 +168,23 @@
                         <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo-1}" class="p_pre">上一页</a>
                     </c:if>
 
-                    <c:forEach var="i" begin="${page.currPageNo-3<0?0:page.currPageNo-3}" end="${page.currPageNo-1}">
-                        <c:if test="${i > 0 && i<page.totalPageCount}">
-                            <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
-                        </c:if>
-                    </c:forEach>
+                    <c:if test="${page.totalCount != 0}">
+                        <c:forEach var="i" begin="${page.currPageNo-3<0?0:page.currPageNo-3}" end="${page.currPageNo-1}">
+                            <c:if test="${i > 0 && i<page.totalPageCount}">
+                                <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+
                     <a href="<%=path%>/1admin/productCategory?action=index&index=${page.currPageNo}" class="cur">${page.currPageNo}</a>
 
-                    <c:forEach var="i" begin="${page.currPageNo+1}" end="${page.currPageNo+3}">
-                        <c:if test="${i <= page.totalPageCount}">
-                            <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
-                        </c:if>
-                    </c:forEach>
-
+                    <c:if test="${page.totalCount != 0}">
+                        <c:forEach var="i" begin="${page.currPageNo+1}" end="${page.currPageNo+3}">
+                            <c:if test="${i <= page.totalPageCount}">
+                                <a href="<%=path%>/admin/productCategory?action=index&index=${i}">${i}</a>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
 
                     <c:if test="${page.currPageNo < page.totalPageCount}">
                         <a href="<%=path%>/admin/productCategory?action=index&index=${page.currPageNo+1}" class="p_pre">下一页</a>
