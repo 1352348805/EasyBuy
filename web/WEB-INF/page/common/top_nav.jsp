@@ -93,7 +93,7 @@
         <span class="fr">
             <c:choose>
                 <c:when test="${sessionScope.user == null}">
-                     <span class="fl">你好，请<a href="<%=path%>/Login">登录</a>&nbsp; <a href="Regist.html" style="color:#ff4e00;">免费注册</a>&nbsp;
+                     <span class="fl">你好，请<a href="<%=path%>/Login">登录</a>&nbsp; <a href="<%=path%>/Register" style="color:#ff4e00;">免费注册</a>&nbsp;
                 </c:when>
                 <c:otherwise>
                     <span class="fl"><a href="<%=path%>/admin/user?action=index">${sessionScope.user.userName}</a>

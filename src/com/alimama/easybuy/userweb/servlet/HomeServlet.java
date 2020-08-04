@@ -20,21 +20,19 @@ import java.util.List;
  * @author asuk
  * @date 2020/7/20 18:38
  */
-@WebServlet("/Home")
+@WebServlet({"/Home","/"})
 public class HomeServlet extends HttpServlet {
 
     Logger logger = Logger.getLogger(HomeServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        if ("index".equals(action)) {
-            ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
+        ProductCategoryService productCategoryService = new ProductCategoryServiceImpl();
 
-            List<ProductCategoryWithSubClass> menu = productCategoryService.getProductCategoryMenu(req);
-            req.setAttribute("menu", menu);
-            req.getRequestDispatcher("/WEB-INF/page/userweb/Home.jsp").forward(req,resp);
-        }
+        List<ProductCategoryWithSubClass> menu = productCategoryService.getProductCategoryMenu(req);
+        req.setAttribute("menu", menu);
+        req.getRequestDispatcher("/WEB-INF/page/userweb/Home.jsp").forward(req,resp);
+
     }
 
 

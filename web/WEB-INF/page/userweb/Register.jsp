@@ -41,7 +41,7 @@
 <div class="soubg">
 	<div class="sou">
         <span class="fr">
-        	<span class="fl">你好，请<a href="Login.jsp">登录</a>&nbsp; <a href="Register.jsp" style="color:#ff4e00;">免费注册</a>&nbsp; </span>
+        	<span class="fl">你好，请<a href="<%=path%>/Login">登录</a>&nbsp; <a href="<%=path%>/Register" style="color:#ff4e00;">免费注册</a>&nbsp; </span>
             <span class="fl">|&nbsp;关注我们：</span>
             <span class="s_sh"><a href="#" class="sh1">新浪</a><a href="#" class="sh2">微信</a></span>
             <span class="fr">|&nbsp;<a href="#">手机版&nbsp;<img src="<%=path%>/images/s_tel.png" align="absmiddle" /></a></span>
