@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author asuk
@@ -149,59 +150,22 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         return productCategoryList;
     }
 
+    /**
+     * 获取分类菜单数据
+     * @param i
+     * @return
+     */
     private List<ProductCategoryWithSubClass> getProductCategoryMenu(Integer i) {
-        List<ProductCategoryWithSubClass> menu = new ArrayList<>();
+        List<ProductCategoryWithSubClass> menu = null;
         Connection con = null;
         try {
             con = DatabaseUtil.getConnection();
             productCategoryDao = new ProductCategoryDaoImpl(con);
-            List<ProductCategory> oneType = productCategoryDao.getProductCategoryListByParentId(0);
-            //遍历一级分类
-            oneType.forEach(one -> {
-                ProductCategoryWithSubClass oneSubClassList = new ProductCategoryWithSubClass();
-                oneSubClassList.setId(one.getId());
-                oneSubClassList.setName(one.getName());
-                oneSubClassList.setParentId(one.getParentId());
-                oneSubClassList.setType(one.getType());
-                oneSubClassList.setIconClass(one.getIconClass());
-                try {
-                    //遍历二级分类
-                    List<ProductCategory> twoType = productCategoryDao.getProductCategoryListByParentId(one.getId());
-                    List<ProductCategoryWithSubClass> twoSubClassList = new ArrayList<>();
-                    twoType.forEach(two -> {
-                        ProductCategoryWithSubClass twoSubClass = new ProductCategoryWithSubClass();
-                        twoSubClass.setId(two.getId());
-                        twoSubClass.setName(two.getName());
-                        twoSubClass.setParentId(two.getParentId());
-                        twoSubClass.setType(two.getType());
-                        twoSubClass.setIconClass(two.getIconClass());
-                        try {
-                            List<ProductCategory> threeType = productCategoryDao.getProductCategoryListByParentId(two.getId());
-                            List<ProductCategoryWithSubClass> threeSubClassList = new ArrayList<>();
-                            threeType.forEach(three -> {
-                                ProductCategoryWithSubClass threeSubClass = new ProductCategoryWithSubClass();
-                                threeSubClass.setId(three.getId());
-                                threeSubClass.setName(three.getName());
-                                threeSubClass.setParentId(three.getParentId());
-                                threeSubClass.setType(three.getType());
-                                threeSubClass.setIconClass(three.getIconClass());
-                                threeSubClassList.add(threeSubClass);
-                            });
-                            //封装二级菜单的子菜单
-                            twoSubClass.setSubClass(threeSubClassList);
-                        } catch (SQLException throwables) {
-                            throwables.printStackTrace();
-                        }
-                        twoSubClassList.add(twoSubClass);
-                    });
-                    //封装一级菜单的子菜单
-                    oneSubClassList.setSubClass(twoSubClassList);
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-                menu.add(oneSubClassList);
-            });
 
+            ProductCategoryWithSubClass productCategoryWithSubClasses = new ProductCategoryWithSubClass();
+
+            fillMenu(0,productCategoryWithSubClasses);
+            menu = productCategoryWithSubClasses.getSubClass();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
@@ -209,6 +173,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         }
         return menu;
     }
+
 
     @Override
     public List<ProductCategoryWithSubClass> getProductCategoryMenu(HttpServletRequest request) {
@@ -224,5 +189,31 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
             application.setAttribute("menu",menu);
         }
         return menu;
+    }
+
+    /**
+     * 递归获取菜单分类
+     * @param parentId 父级分类id
+     * @param productCategoryWithSubClass 该分类的子分类集合
+     */
+    private void fillMenu(Integer parentId,ProductCategoryWithSubClass productCategoryWithSubClass)  {
+        AtomicReference<List<ProductCategoryWithSubClass>> listAtomicReference = new AtomicReference<>();
+        listAtomicReference.set(new ArrayList<>());
+        try {
+            List<ProductCategory> productCategoryListByParentId = productCategoryDao.getProductCategoryListByParentId(parentId);
+            productCategoryListByParentId.forEach(item -> {
+                ProductCategoryWithSubClass subClassList = new ProductCategoryWithSubClass();
+                subClassList.setId(item.getId());
+                subClassList.setName(item.getName());
+                subClassList.setParentId(item.getParentId());
+                subClassList.setType(item.getType());
+                subClassList.setIconClass(item.getIconClass());
+                fillMenu(item.getId(), subClassList);
+                listAtomicReference.get().add(subClassList);
+            });
+            productCategoryWithSubClass.setSubClass(listAtomicReference.get());
+        } catch (Exception e) {
+
+        }
     }
 }
