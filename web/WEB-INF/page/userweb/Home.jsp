@@ -300,48 +300,51 @@
         </div>
         <div class="fresh_mid">
         	<ul>
-            	<li>
-                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>
-                    <div class="price">
-                    	<font>￥<span>198.00</span></font> &nbsp; 26R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/fre_1.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>
-                    <div class="price">
-                    	<font>￥<span>198.00</span></font> &nbsp; 26R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/fre_2.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>
-                    <div class="price">
-                    	<font>￥<span>198.00</span></font> &nbsp; 26R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/fre_3.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>
-                    <div class="price">
-                    	<font>￥<span>198.00</span></font> &nbsp; 26R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/fre_4.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>
-                    <div class="price">
-                    	<font>￥<span>198.00</span></font> &nbsp; 26R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/fre_5.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>
-                    <div class="price">
-                    	<font>￥<span>198.00</span></font> &nbsp; 26R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/fre_6.jpg" width="185" height="155" /></a></div>
-                </li>
+                <c:forEach items="${importedFood}" var="importedFood">
+                    <li>
+                        <div class="name"><a href="#">${importedFood.name}</a></div>
+                        <div class="price">
+                            <font>￥<span>${importedFood.price}</span></font> &nbsp; 26R
+                        </div>
+                        <div class="img"><a href="#"><img src="images/${importedFood.fileName}" width="185" height="155" /></a></div>
+                    </li>
+                </c:forEach>
+
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>198.00</span></font> &nbsp; 26R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/fre_2.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>198.00</span></font> &nbsp; 26R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/fre_3.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>198.00</span></font> &nbsp; 26R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/fre_4.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>198.00</span></font> &nbsp; 26R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/fre_5.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">新鲜美味  进口美食</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>198.00</span></font> &nbsp; 26R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/fre_6.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
             </ul>
         </div>
         <div class="fresh_right">
@@ -379,48 +382,59 @@
         </div>
         <div class="fresh_mid">
         	<ul>
-            	<li>
-                	<div class="name"><a href="#">莫斯利安酸奶</a></div>
-                    <div class="price">
-                    	<font>￥<span>96.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/food_1.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">莫斯利安酸奶</a></div>
-                    <div class="price">
-                    	<font>￥<span>96.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/food_2.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">莫斯利安酸奶</a></div>
-                    <div class="price">
-                    	<font>￥<span>96.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/food_3.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">莫斯利安酸奶</a></div>
-                    <div class="price">
-                    	<font>￥<span>96.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/food_4.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">莫斯利安酸奶</a></div>
-                    <div class="price">
-                    	<font>￥<span>96.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/food_5.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">莫斯利安酸奶</a></div>
-                    <div class="price">
-                    	<font>￥<span>96.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/food_6.jpg" width="185" height="155" /></a></div>
-                </li>
+
+                <c:forEach items="${healthyFood}" var="healthyFood">
+                    <li>
+                        <div class="name"><a href="#">${healthyFood.name}</a></div>
+                        <div class="price">
+                            <font>￥<span>${healthyFood.price}</span></font> &nbsp; 25R
+                        </div>
+                        <div class="img"><a href="#"><img src="images/${healthyFood.fileName}" width="185" height="155" /></a></div>
+                    </li>
+                </c:forEach>
+
+<%--            	<li>--%>
+<%--                	<div class="name"><a href="#">莫斯利安酸奶</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>96.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/food_1.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">莫斯利安酸奶</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>96.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/food_2.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">莫斯利安酸奶</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>96.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/food_3.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">莫斯利安酸奶</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>96.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/food_4.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">莫斯利安酸奶</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>96.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/food_5.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">莫斯利安酸奶</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>96.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/food_6.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
             </ul>
         </div>
         <div class="fresh_right">
@@ -458,48 +472,58 @@
         </div>
         <div class="fresh_mid">
         	<ul>
-            	<li>
-                	<div class="name"><a href="#">美宝莲粉饼</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 16R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/make_1.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">美宝莲粉饼</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 16R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/make_2.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">美宝莲粉饼</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 16R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/make_3.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">美宝莲粉饼</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 16R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/make_4.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">美宝莲粉饼</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 16R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/make_5.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">美宝莲粉饼</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 16R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/make_6.jpg" width="185" height="155" /></a></div>
-                </li>
+                <c:forEach items="${cosmetic}" var="cosmetic">
+                    <li>
+                        <div class="name"><a href="#">${cosmetic.name}</a></div>
+                        <div class="price">
+                            <font>￥<span>${cosmetic.price}</span></font> &nbsp; 16R
+                        </div>
+                        <div class="img"><a href="#"><img src="images/${cosmetic.fileName}" width="185" height="155" /></a></div>
+                    </li>
+                </c:forEach>
+
+<%--            	<li>--%>
+<%--                	<div class="name"><a href="#">美宝莲粉饼</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 16R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/make_1.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">美宝莲粉饼</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 16R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/make_2.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">美宝莲粉饼</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 16R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/make_3.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">美宝莲粉饼</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 16R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/make_4.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">美宝莲粉饼</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 16R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/make_5.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">美宝莲粉饼</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 16R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/make_6.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
             </ul>
         </div>
         <div class="fresh_right">
@@ -540,48 +564,58 @@
         </div>
         <div class="fresh_mid">
         	<ul>
-            	<li>
-                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 20R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/baby_1.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 20R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/baby_2.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 20R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/baby_3.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 20R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/baby_4.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 20R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/baby_5.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>
-                    <div class="price">
-                    	<font>￥<span>260.00</span></font> &nbsp; 20R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/baby_6.jpg" width="185" height="155" /></a></div>
-                </li>
+
+                <c:forEach items="${luggage}" var="luggage">
+                    <li>
+                        <div class="name"><a href="#">${luggage.name}</a></div>
+                        <div class="price">
+                            <font>￥<span>${luggage.price}</span></font> &nbsp; 20R
+                        </div>
+                        <div class="img"><a href="#"><img src="images/${luggage.fileName}" width="185" height="155" /></a></div>
+                    </li>
+                </c:forEach>
+<%--            	<li>--%>
+<%--                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 20R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/baby_1.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 20R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/baby_2.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 20R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/baby_3.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 20R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/baby_4.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 20R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/baby_5.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">儿童玩具  变形金刚</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>260.00</span></font> &nbsp; 20R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/baby_6.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
             </ul>
         </div>
         <div class="fresh_right">
@@ -619,48 +653,52 @@
         </div>
         <div class="fresh_mid">
         	<ul>
-            	<li>
-                	<div class="name"><a href="#">品质蓝色沙发</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 50R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/home_1.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">品质蓝色沙发</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 50R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/home_2.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">品质蓝色沙发</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 50R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/home_3.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">品质蓝色沙发</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 50R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/home_4.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">品质蓝色沙发</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 50R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/home_5.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">品质蓝色沙发</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 50R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/home_6.jpg" width="185" height="155" /></a></div>
-                </li>
+                <c:forEach items="${householdCommodity}" var="householdCommodity">
+                    <li>
+                        <div class="name"><a href="#">${householdCommodity.name}</a></div>
+                        <div class="price">
+                            <font>￥<span>${householdCommodity.price}</span></font> &nbsp; 50R
+                        </div>
+                        <div class="img"><a href="#"><img src="images/${householdCommodity.fileName}" width="185" height="155" /></a></div>
+                    </li>
+                </c:forEach>
+
+
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">品质蓝色沙发</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 50R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/home_2.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">品质蓝色沙发</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 50R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/home_3.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">品质蓝色沙发</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 50R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/home_4.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">品质蓝色沙发</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 50R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/home_5.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">品质蓝色沙发</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 50R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/home_6.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
             </ul>
         </div>
         <div class="fresh_right">
@@ -698,48 +736,53 @@
         </div>
         <div class="fresh_mid">
         	<ul>
-            	<li>
-                	<div class="name"><a href="#">乐视高清电视</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/tel_1.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">乐视高清电视</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/tel_2.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">乐视高清电视</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/tel_3.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">乐视高清电视</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/tel_4.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">乐视高清电视</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/tel_5.jpg" width="185" height="155" /></a></div>
-                </li>
-                <li>
-                	<div class="name"><a href="#">乐视高清电视</a></div>
-                    <div class="price">
-                    	<font>￥<span>2160.00</span></font> &nbsp; 25R
-                    </div>
-                    <div class="img"><a href="#"><img src="images/tel_6.jpg" width="185" height="155" /></a></div>
-                </li>
+
+                <c:forEach items="${electronicCommodity}" var="electronicCommodity">
+                    <li>
+                        <div class="name"><a href="#">${electronicCommodity.name}</a></div>
+                        <div class="price">
+                            <font>￥<span>${electronicCommodity.price}</span></font> &nbsp; 25R
+                        </div>
+                        <div class="img"><a href="#"><img src="images/${electronicCommodity.fileName}" width="185" height="155" /></a></div>
+                    </li>
+                </c:forEach>
+
+
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">乐视高清电视</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/tel_2.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">乐视高清电视</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/tel_3.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">乐视高清电视</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/tel_4.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">乐视高清电视</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/tel_5.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
+<%--                <li>--%>
+<%--                	<div class="name"><a href="#">乐视高清电视</a></div>--%>
+<%--                    <div class="price">--%>
+<%--                    	<font>￥<span>2160.00</span></font> &nbsp; 25R--%>
+<%--                    </div>--%>
+<%--                    <div class="img"><a href="#"><img src="images/tel_6.jpg" width="185" height="155" /></a></div>--%>
+<%--                </li>--%>
             </ul>
         </div>
         <div class="fresh_right">

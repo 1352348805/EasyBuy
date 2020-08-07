@@ -49,12 +49,30 @@ public interface ProductService {
     List<Product> getProductParentOneinfo(Integer categoryLeveOneId) throws Exception;
 
     /**
-     *@Description // 后台管理 - 修改商品接口
+     *@Description  后台管理 - 修改商品接口
      *@Param
      *@Author Wang.li.ming
      *@Date 2020/7/30
      *@Time 12:24
      */
     boolean productupdate(Product product) throws Exception;
+
+    /**
+     *@Description  对商品相关信息数据进行添加
+     *@Param
+     *@Author Wang.li.ming
+     *@Date 2020/8/5
+     *@Time 15:35
+     */
+    boolean productInfoMationiAdd(Product product) throws Exception;
+
+    /**
+     *@Description  查询一级分类下的商品 以一级分类条件进行筛选并显示前面n条数据，
+     *@Param parentid  &  pagesize
+     *@Author Wang.li.ming
+     *@Date 2020/8/7
+     *@Time 10:03
+     */
+    List<Product> getselectProductParentIdInfo(Integer parentid , Integer pagesize) throws Exception;
 
 }

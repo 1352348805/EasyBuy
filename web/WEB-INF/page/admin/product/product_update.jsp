@@ -20,88 +20,85 @@
 	<script type="text/javascript" src="<%=path%>/js/select.js"></script>
 
     <script>
-        function queryProductCategoryList(obj,selectId) {
-            var parentid = $(obj).val();  //获取用户选中下拉框的id值
-            $.ajax({
-                 url : "<%=path%>/admin/product" ,
-                 type : "get",
-                 data: {
-                     action : "queryProductCategoryList",
-                     parentId : parentid
-                 },
-                 dataType : "json",
-                 success : function (jsonStr) {
-                     var result = eval(jsonStr);
-                     if(result.code==200){
-                         var options = "<option value='0'>"+"请选择..."+"</option>";
-                         for(var i = 0 ; i<result.data.length; i++){
-                             var option = "<option value="+result.data[i].id+">"+result.data[i].name+"</option>";
-                             options=options+option;
-                         }
-                         $("#"+selectId).html(options);
-                     }
 
-                  }
-            });
-        }
+            function queryProductCategoryList(obj,selectId) {
+                var parentid = $(obj).val();  //获取用户选中下拉框的id值
+                $.ajax({
+                    url : "<%=path%>/admin/product" ,
+                    type : "get",
+                    data: {
+                        action : "queryProductCategoryList",
+                        parentId : parentid
+                    },
+                    dataType : "json",
+                    success : function (jsonStr) {
+                        var result = eval(jsonStr);
+                        if(result.code==200){
+                            var options = "<option value='0'>"+"请选择..."+"</option>";
+                            for(var i = 0 ; i<result.data.length; i++){
+                                var option = "<option value="+result.data[i].id+">"+result.data[i].name+"</option>";
+                                options=options+option;
+                            }
+                            $("#"+selectId).html(options);
+                        }
 
-        $("#bt").click(function ()  {
-
-
-        });
-        function checkProduct() {
-            var productCategoryLevelone = $("#productCategoryLevel1").val();
-            var productCategoryLeveltwo = $("#productCategoryLevel2").val();
-            var productCategoryLevelthree = $("#productCategoryLevel3").val();
-            var name = $("#name").val();
-            var filename = $("#fileid").val();
-            var price = $("#price").val();
-            var stock = $("#stock").val();
-            var description = $("#descriptionid").val();
-            prices = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;  // 判断价格是整数或小数形式
-            numer = /^[1-9]\d{0,5}$/; // 判断6位整正数
-            if(productCategoryLevelone == 0){
-                alert("请选择商品一级分类");
-                return ;
-            }
-            if(productCategoryLeveltwo == 0){
-                alert("请选择商品二级分类");
-                return ;
-            }
-            if(productCategoryLevelthree == 0){
-                alert("请选择商品三级分类");
-                return ;
-            }
-            if(name == null || name == ""){
-                alert("商品名称不能为空");
-                return ;
-            }
-            if(name.length < 2 || name.length >9){
-                alert("商品名称为2到9个字符");
-                return ;
-            }
-            if(filename == null || filename == ""){
-                alert("商品图片不能为空");
-                return ;
-            }
-            if(price == null || price == ""){
-                alert("商品单价不能为空");
-                return ;
-            }
-            if(prices.test(price) == false){
-                alert("请输入合法的价格");
-                return ;
-            }
-            if(stock == null || stock == ""){
-                alert("商品库存不能为空");
-                return ;
-            }
-            if(numer.test(stock) == false){
-                alert("请输入合法的商品库存量");
-                return ;
+                    }
+                });
             }
 
-        }
+            function checkProduct() {
+                var productCategoryLevelone = $("#productCategoryLevel1").val();
+                var productCategoryLeveltwo = $("#productCategoryLevel2").val();
+
+                var name = $("#name").val();
+                var filename = $("#fileid").val();
+                var price = $("#price").val();
+                var stock = $("#stock").val();
+                var description = $("#descriptionid").val();
+                prices = /(^[1-9]\d*(\.\d{1,2})?$)|(^0(\.\d{1,2})?$)/;  // 判断价格是整数或小数形式
+                numer = /^[1-9]\d{0,5}$/; // 判断6位整正数
+                if(productCategoryLevelone == 0){
+                    alert("请选择商品一级分类");
+                    return false;
+                }
+                if(productCategoryLeveltwo == 0){
+                    alert("请选择商品二级分类");
+                    return false;
+                }
+
+                if(name == null || name == ""){
+                    alert("商品名称不能为空");
+                    return false;
+                }
+                if(name.length < 2 || name.length >9){
+                    alert("商品名称为2到9个字符");
+                    return false;
+                }
+                if(filename == null || filename == ""){
+                    alert("商品图片不能为空");
+                    return false;
+                }
+                if(price == null || price == ""){
+                    alert("商品单价不能为空");
+                    return false;
+                }
+                if(prices.test(price) == false){
+                    alert("请输入合法的价格");
+                    return false;
+                }
+                if(stock == null || stock == ""){
+                    alert("商品库存不能为空");
+                    return false;
+                }
+                if(numer.test(stock) == false){
+                    alert("请输入合法的商品库存量");
+                    return false;
+                }
+                return  true;
+            }
+
+
+
     </script>
         
     
@@ -129,7 +126,7 @@
             </div>
 
             <br>
-            <form action="<%=path%>/admin/product?action=UpdateProduct&amp;productid=${productbyinfo.id}" method="post" enctype="multipart/form-data" id="productUpdate">
+            <form action="<%=path%>/admin/product?action=UpdateProduct&amp;productid=${productbyinfo.id}" method="post" enctype="multipart/form-data" id="productUpdate" onsubmit="return checkProduct();" >
                 <table border="0" class="add_tab" style="width:930px;" cellspacing="0" cellpadding="0">
                     <tbody><tr>
                         <td width="135" align="right">一级分类</td>
@@ -215,7 +212,7 @@
                     <tr>
                         <td width="135" align="right">商品图片</td>
                         <td>
-                            <input type="file" class="text" name="photo" id="fileid"><span></span>
+                            <input type="file" class="text" name="photo" id="fileid"><span id="fileSpan"></span>
                         </td>
                     </tr>
                     <tr>
@@ -233,15 +230,13 @@
                     <tr>
                         <td width="135" align="right">描述</td>
                         <td>
-                            <textarea name="description" id="descriptionid" value="${productbyinfo.description}"></textarea>
+                            <textarea name="description" id="descriptionid">${productbyinfo.description}</textarea>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
-
-                            <input type="button" value="确认修改" class="s_btn" id="bt">
-
+                            <input type="submit" value="确认修改" class="s_btn" id="bt">
                         </td>
                     </tr>
                     </tbody>

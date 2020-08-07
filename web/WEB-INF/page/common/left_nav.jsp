@@ -35,7 +35,7 @@
         <ul>
             <li><a href="<%=path%>/admin/productCategory?action=index">分类管理</a></li>
             <li><a href="<%=path%>/admin/product?action=index">商品管理</a></li>
-            <li><a href="Member_Address.html">商品上架</a></li>
+            <li><a href="<%=path%>/admin/product?action=productAdd">商品上架</a></li>
         </ul>
     </div>
     <div class="left_m">

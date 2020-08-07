@@ -29,7 +29,7 @@
                         dataType: "json",
                         success: function (data) {
                             alert(data.message);
-                            location.href="<%=path%>/admin/product?action=index";
+                            location.href="<%=path%>/admin/product?action=index&currentPage=${page.currPageNo}";
                         },
                         error: function (data) {
                             alert(data.message);

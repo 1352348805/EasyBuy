@@ -43,7 +43,8 @@ public class ProductCategory {
         return iconClass;
     }
 
-    public void setIconClass(String iconClass) {
+    public void setIconClass(String iconClass)
+    {
         this.iconClass = iconClass;
     }
 
