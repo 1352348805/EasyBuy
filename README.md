@@ -1,2 +1,2 @@
-# EasyBuy
-易买网
+ # EasyBuy
+ 易买网

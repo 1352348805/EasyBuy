@@ -24,6 +24,7 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
     public ProductDaoImpl(Connection connection){
         super(connection);
     }
+
     @Override
     public List<Product> productSelectPagesize(ProductQueryParam queryParams, int pageIndex, int pagesize) {
         List<Product> productpagesize = new ArrayList<Product>();
@@ -48,7 +49,6 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
                 list.add(queryParams.getCategoryLevel3Id());
             }
         }
-
         sb.append("LIMIT ?,?");
         list.add(pageIndex);
         list.add(pagesize);
@@ -170,8 +170,28 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
     }
 
     @Override
-    public boolean productadd() {
-        return false;
+    public boolean productadd(Product product){
+        String sql = "INSERT INTO `easybuy_product` (`categoryLevel1Id`,`categoryLevel2Id`,`categoryLevel3Id`,`name`,`fileName`,`price`,`stock`,`description`) VALUES (?,?,?,?,?,?,?,?)";
+        try{
+            Object[] objects ={
+               product.getCategoryLevel1Id(),
+               product.getCategoryLevel2Id(),
+               product.getCategoryLevel3Id(),
+               product.getName(),
+               product.getFileName(),
+               product.getPrice(),
+               product.getStock(),
+               product.getDescription()
+            };
+            int row = this.executeUpdate(sql,objects);
+            if(row > 0){
+                return true;
+            }
+            return false;
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -221,6 +241,24 @@ public class ProductDaoImpl extends BaseDao implements ProductDao {
             }
         }
         return products;
+    }
+
+    @Override
+    public List<Product> selectProductParentOne(Integer parentOne, Integer pagesize){
+        String sql = "SELECT * FROM `easybuy_product`  WHERE `categoryLevel1Id`=?  LIMIT 1,?" ;
+        List<Product> selectProductParentOnelist = new ArrayList<>();
+        try{
+         Object[] objects = {parentOne,pagesize};
+         ResultSet rs = this.executeQuery(sql,objects);
+         Product productdao =null;
+         while(rs.next()){
+             productdao = packagingProductData(rs);
+             selectProductParentOnelist.add(productdao);
+         }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return selectProductParentOnelist;
     }
 
     private Product packagingProductData(ResultSet rs) throws SQLException {

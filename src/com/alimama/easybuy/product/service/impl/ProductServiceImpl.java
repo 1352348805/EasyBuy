@@ -115,5 +115,48 @@ public class ProductServiceImpl implements ProductService {
         }
 
     }
+    /**
+     *@Description 商品添加
+     *@Param
+     *@Author Wang.li.ming
+     *@Date 2020/8/7
+     *@Time 10:09
+     */
+    @Override
+    public boolean productInfoMationiAdd(Product product){
+        Connection con = null;
+        try{
+            con = DatabaseUtil.getConnection();
+            ProductDao productDao = new ProductDaoImpl(con);
+            boolean bool = productDao.productadd(product);
+            if(bool){
+                return true;
+            }
+            return false;
+        }catch(Exception  e){
+            e.printStackTrace();
+            return false;
+        }
+        finally{
+            DatabaseUtil.close(con);
+        }
+    }
+
+    @Override
+    public List<Product> getselectProductParentIdInfo(Integer parentid, Integer pagesize) {
+         Connection con = null;
+         List<Product> getselectProductParentIdInfoList = null;
+        try{
+            con = DatabaseUtil.getConnection();
+            ProductDao productDao = new ProductDaoImpl(con);
+            getselectProductParentIdInfoList = productDao.selectProductParentOne(parentid,pagesize);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            DatabaseUtil.close(con);
+        }
+        return getselectProductParentIdInfoList;
+    }
 }
 
