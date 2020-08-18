@@ -29,7 +29,7 @@
                                         <div class="zj_l_c">
                                             <h2>${twoType.name}</h2>
                                             <c:forEach var="threeType" items="${twoType.subClass}">
-                                                <a href="#">${threeType.name}</a>|
+                                                <a href="<%=path%>/Product?action=queryProductList&level=3&cid=${threeType.id}">${threeType.name}</a>|
                                             </c:forEach>
                                         </div>
                                     </c:forEach>
