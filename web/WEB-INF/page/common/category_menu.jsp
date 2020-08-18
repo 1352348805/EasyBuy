@@ -27,7 +27,7 @@
                                 <div class="zj_l">
                                     <c:forEach var="twoType" items="${oneType.subClass}">
                                         <div class="zj_l_c">
-                                            <h2>${twoType.name}</h2>
+                                            <a href="<%=path%>/Product?action=queryProductList&level=2&cid=${twoType.id}">${twoType.name}</a>
                                             <c:forEach var="threeType" items="${twoType.subClass}">
                                                 <a href="<%=path%>/Product?action=queryProductList&level=3&cid=${threeType.id}">${threeType.name}</a>|
                                             </c:forEach>
