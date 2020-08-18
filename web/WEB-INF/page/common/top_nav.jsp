@@ -1,8 +1,4 @@
-<%@ page import="com.alibaba.fastjson.JSONObject" %>
-<%@ page import="com.alimama.easybuy.cart.bean.Cart" %>
-<%@ page import="com.alimama.easybuy.cart.bean.CartItem" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.net.URLDecoder" %><%--
+<%--
   User: asuk
   Date: 2020/7/19
   Time: 14:00
@@ -149,7 +145,7 @@
     </div>
 </div>
 <div class="top">
-    <div class="logo"><a href="Index.html"><img src="<%=path%>/images/logo.png" /></a></div>
+    <div class="logo"><a href="<%=path%>/Home?action=index"><img src="<%=path%>/images/logo.png" /></a></div>
 
     <%
         //判断网址，后台不显示搜索
