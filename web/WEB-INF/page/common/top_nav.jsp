@@ -102,7 +102,7 @@
 
 
 
-                |&nbsp;<a href="#">我的订单</a>&nbsp;|</span>
+                |&nbsp;<a href="<%=path%>/admin/order?action=queryAllOrder">我的订单</a>&nbsp;| <a href="<%=path%>/admin/product?action=index">后台管理</a>&nbsp;| </span>
         	<span class="ss">
             	<div class="ss_list">
                 	<a href="#">收藏夹</a>
@@ -149,7 +149,7 @@
     </div>
 </div>
 <div class="top">
-    <div class="logo"><a href="Index.html"><img src="<%=path%>/images/logo.png" /></a></div>
+    <div class="logo"><a href="<%=path%>/Home"><img src="<%=path%>/images/logo.png" /></a></div>
 
     <%
         //判断网址，后台不显示搜索
